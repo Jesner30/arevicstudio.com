@@ -191,19 +191,20 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
   #LBpt780nQwQ6P2j0 { --neon: 37, 211, 102; } /* WhatsApp - Verde */
   #LBfydFWm1yN7Tpwh { --neon: 23, 105, 255; } /* Behance - Azul */
 
-  /* Animacion de latido inactivo -- filter:drop-shadow no se recorta (a diferencia de box-shadow) */
+  /* Animación de latido inactivo (100% circular, difuminado perfecto) */
   @keyframes arevic-pulse-idle {
-    0%   { filter: drop-shadow(0 0 6px rgba(var(--neon), 0.45)) drop-shadow(0 0 14px rgba(var(--neon), 0.22)); }
-    100% { filter: drop-shadow(0 0 14px rgba(var(--neon), 0.85)) drop-shadow(0 0 28px rgba(var(--neon), 0.45)); }
+    0%   { box-shadow: 0 0 10px 1px rgba(var(--neon), 0.3); }
+    100% { box-shadow: 0 0 22px 3px rgba(var(--neon), 0.6); }
   }
 
-  /* ================= Efecto Hover: Superficie de Cristal y Neon ================= */
+  /* ================= Efecto Hover: Superficie de Cristal y Neón ================= */
   #LBRpCKMJWnTnM1Fy:hover, #LBCrSwxDzDvc4t9y:hover, #LBrY3GWBT9hccdHb:hover, #LBVr82yYYnsJc0df:hover,
   #LB8NQ3hgGmFzzq1z:hover, #LBnhGPyl8GVPfptD:hover, #LBpt780nQwQ6P2j0:hover, #LBfydFWm1yN7Tpwh:hover {
     animation: none !important; /* Detiene el latido */
-    /* Brillo exterior intenso en dos capas, difuminado real (sin recorte) */
-    filter: drop-shadow(0 0 16px rgba(var(--neon), 0.95)) drop-shadow(0 0 34px rgba(var(--neon), 0.55)) !important;
-    background-color: rgba(255, 255, 255, 0.06) !important;
+    /* Sombra exterior intensa + sombra interior (inset) + color de fondo translúcido */
+    box-shadow: 0 0 25px 4px rgba(var(--neon), 0.9), inset 0 0 15px 2px rgba(var(--neon), 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.06) !important; 
+    transform: scale(1.03);
   }
 
   /* ================= Interacción de Iconos y Texto ================= */
