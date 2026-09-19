@@ -112,7 +112,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     
     /* ======================================================================================= */
     /* ⚠️ PEGA AQUÍ EL CONTENIDO ORIGINAL COMPLETO DE LA VARIABLE window['bootstrap'] DE CANVA ⚠️ */
-    /* Ej: window['bootstrap'] = JSON.parse('{"base":{"A?":"B","L":false... etc. 60 mil caracteres}'); */
     /* ======================================================================================= */
 
     window['cmsg'] = window['cmsg'] || { locale: "es-ES", strings: {} };
@@ -166,50 +165,68 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     50% { filter: drop-shadow(0 0 22px rgba(94, 224, 224, 0.65)) drop-shadow(0 0 40px rgba(239, 68, 68, 0.4)); }
   }
 
-  /* ================= Brillo estático de respiración (Efecto Neón Corregido - Redondo) ================= */
+
+  /* ================= Eliminar el brillo cuadrado nativo de Canva ================= */
   .xx0k8Q {
-    filter: none !important; /* Elimina la molesta sombra de caja cuadrada por defecto */
-    border-radius: 50px;     /* Fuerza la redondez estricta a todo el bloque luminoso base */
-    animation: arevic-glow-pulse 3.2s ease-in-out infinite;
-  }
-  /* Ajuste de colores base del "latido" para cada boton usando el box shadow redondo */
-  #LBRpCKMJWnTnM1Fy .xx0k8Q { box-shadow: 0 0 25px 2px rgba(94, 224, 224, 0.35); } /* Sitio Web */
-  #LBCrSwxDzDvc4t9y .xx0k8Q { box-shadow: 0 0 25px 2px rgba(255, 0, 0, 0.35); }    /* YouTube */
-  #LBrY3GWBT9hccdHb .xx0k8Q { box-shadow: 0 0 25px 2px rgba(94, 224, 224, 0.35); } /* Tour */
-  #LBVr82yYYnsJc0df .xx0k8Q { box-shadow: 0 0 25px 2px rgba(24, 119, 242, 0.35); } /* Facebook */
-  #LB8NQ3hgGmFzzq1z .xx0k8Q { box-shadow: 0 0 25px 2px rgba(37, 244, 238, 0.35); }  /* TikTok */
-  #LBnhGPyl8GVPfptD .xx0k8Q { box-shadow: 0 0 25px 2px rgba(225, 48, 108, 0.35); } /* Instagram */
-  #LBpt780nQwQ6P2j0 .xx0k8Q { box-shadow: 0 0 25px 2px rgba(37, 211, 102, 0.35); } /* WhatsApp */
-  #LBfydFWm1yN7Tpwh .xx0k8Q { box-shadow: 0 0 25px 2px rgba(23, 105, 255, 0.35); } /* Behance */
-
-  @keyframes arevic-glow-pulse {
-    0%, 100% { opacity: 0.4; }
-    50%      { opacity: 0.95; }
+    display: none !important; /* Esto borra el SVG de fondo cuadrado que se recortaba */
   }
 
-  /* ================= Hover Neón Perfecto (Forma Redonda & Click Absoluto) ================= */
+  /* ================= Configuración base de los botones ================= */
   #LBRpCKMJWnTnM1Fy, #LBCrSwxDzDvc4t9y, #LBrY3GWBT9hccdHb, #LBVr82yYYnsJc0df,
   #LB8NQ3hgGmFzzq1z, #LBnhGPyl8GVPfptD, #LBpt780nQwQ6P2j0, #LBfydFWm1yN7Tpwh {
-    transition: box-shadow 0.25s ease, transform 0.2s ease;
-    border-radius: 50px; 
+    border-radius: 40px !important; /* Forma de píldora circular en los extremos */
     cursor: pointer;
+    transition: all 0.3s ease !important;
+    background-color: rgba(255, 255, 255, 0); /* Fondo transparente inicial */
+    animation: arevic-pulse-idle 3s infinite alternate ease-in-out;
   }
 
-  /* Resplandor externo y animación física cuando el ratón se acerca a la píldora */
-  #LBRpCKMJWnTnM1Fy:hover  { box-shadow: 0 0 20px 2px rgba(94, 224, 224, 0.85); transform: scale(1.02); }
-  #LBCrSwxDzDvc4t9y:hover  { box-shadow: 0 0 20px 2px rgba(255, 0, 0, 0.75); transform: scale(1.02); }
-  #LBrY3GWBT9hccdHb:hover  { box-shadow: 0 0 20px 2px rgba(94, 224, 224, 0.85); transform: scale(1.02); }
-  #LBVr82yYYnsJc0df:hover  { box-shadow: 0 0 20px 2px rgba(24, 119, 242, 0.85); transform: scale(1.02); }
-  #LB8NQ3hgGmFzzq1z:hover  { box-shadow: 0 0 20px 2px rgba(37, 244, 238, 0.8); transform: scale(1.02); }
-  #LBnhGPyl8GVPfptD:hover  { box-shadow: 0 0 20px 2px rgba(225, 48, 108, 0.85); transform: scale(1.02); }
-  #LBpt780nQwQ6P2j0:hover  { box-shadow: 0 0 20px 2px rgba(37, 211, 102, 0.85); transform: scale(1.02); }
-  #LBfydFWm1yN7Tpwh:hover  { box-shadow: 0 0 20px 2px rgba(23, 105, 255, 0.85); transform: scale(1.02); }
+  /* Asignación de colores por botón */
+  #LBRpCKMJWnTnM1Fy { --neon: 94, 224, 224; } /* Sitio Web - Cyan */
+  #LBCrSwxDzDvc4t9y { --neon: 255, 0, 0; }    /* YouTube - Rojo */
+  #LBrY3GWBT9hccdHb { --neon: 94, 224, 224; } /* Tour - Cyan */
+  #LBVr82yYYnsJc0df { --neon: 24, 119, 242; } /* Facebook - Azul */
+  #LB8NQ3hgGmFzzq1z { --neon: 37, 244, 238; } /* TikTok - Cyan claro */
+  #LBnhGPyl8GVPfptD { --neon: 225, 48, 108; } /* Instagram - Magenta */
+  #LBpt780nQwQ6P2j0 { --neon: 37, 211, 102; } /* WhatsApp - Verde */
+  #LBfydFWm1yN7Tpwh { --neon: 23, 105, 255; } /* Behance - Azul */
 
-  /* Desactivar puntero en las imágenes y textos internos para que el DIV entero intercepte el clic */
+  /* Animación de latido inactivo (100% circular, difuminado perfecto) */
+  @keyframes arevic-pulse-idle {
+    0%   { box-shadow: 0 0 10px 1px rgba(var(--neon), 0.3); }
+    100% { box-shadow: 0 0 22px 3px rgba(var(--neon), 0.6); }
+  }
+
+  /* ================= Efecto Hover: Superficie de Cristal y Neón ================= */
+  #LBRpCKMJWnTnM1Fy:hover, #LBCrSwxDzDvc4t9y:hover, #LBrY3GWBT9hccdHb:hover, #LBVr82yYYnsJc0df:hover,
+  #LB8NQ3hgGmFzzq1z:hover, #LBnhGPyl8GVPfptD:hover, #LBpt780nQwQ6P2j0:hover, #LBfydFWm1yN7Tpwh:hover {
+    animation: none !important; /* Detiene el latido */
+    /* Sombra exterior intensa + sombra interior (inset) + color de fondo translúcido */
+    box-shadow: 0 0 25px 4px rgba(var(--neon), 0.9), inset 0 0 15px 2px rgba(var(--neon), 0.4) !important;
+    background-color: rgba(255, 255, 255, 0.06) !important; 
+    transform: scale(1.03);
+  }
+
+  /* ================= Interacción de Iconos y Texto ================= */
+  /* Desactivar puntero para que el DIV padre intercepte todo el clic */
   #LBRpCKMJWnTnM1Fy img, #LBCrSwxDzDvc4t9y img, #LBrY3GWBT9hccdHb img, #LBVr82yYYnsJc0df img,
   #LB8NQ3hgGmFzzq1z img, #LBnhGPyl8GVPfptD img, #LBpt780nQwQ6P2j0 img, #LBfydFWm1yN7Tpwh img,
   .a_GcMg {
     pointer-events: none; 
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Dar vida al logo/icono al pasar el ratón (Crece + Brilla) */
+  #LBRpCKMJWnTnM1Fy:hover img, #LBCrSwxDzDvc4t9y:hover img, #LBrY3GWBT9hccdHb:hover img, #LBVr82yYYnsJc0df:hover img,
+  #LB8NQ3hgGmFzzq1z:hover img, #LBnhGPyl8GVPfptD:hover img, #LBpt780nQwQ6P2j0:hover img, #LBfydFWm1yN7Tpwh:hover img {
+    filter: drop-shadow(0 0 8px rgba(var(--neon), 0.9)) brightness(1.2);
+    transform: scale(1.08);
+  }
+
+  /* Efecto sutil al texto */
+  #LBRpCKMJWnTnM1Fy:hover .a_GcMg, #LBCrSwxDzDvc4t9y:hover .a_GcMg, #LBrY3GWBT9hccdHb:hover .a_GcMg, #LBVr82yYYnsJc0df:hover .a_GcMg,
+  #LB8NQ3hgGmFzzq1z:hover .a_GcMg, #LBnhGPyl8GVPfptD:hover .a_GcMg, #LBpt780nQwQ6P2j0:hover .a_GcMg, #LBfydFWm1yN7Tpwh:hover .a_GcMg {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   }
 
   /* ================= Fondo "circuito vivo" ================= */
@@ -223,7 +240,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
   }
 
   @media (prefers-reduced-motion: reduce) {
-    #PBbj2S2C4T1PkDTc, .xx0k8Q, #LBh3ZCPplVGgMk88::before, #LBh3ZCPplVGgMk88::after, 
+    #PBbj2S2C4T1PkDTc, #LBh3ZCPplVGgMk88::before, #LBh3ZCPplVGgMk88::after, 
     #LBh3ZCPplVGgMk88 img, #LB51Cdr2pfg7kCwy img, #LBmplMrgSd1D3YLc img { animation: none !important; }
   }
 </style>
@@ -267,7 +284,6 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
       const link = btn.querySelector('a');
       if (link) {
         btn.addEventListener('click', (e) => {
-          // Si el clic fue procesado fuera del propio enlace "A", simulamos su uso abriendo la URL.
           if (e.target.tagName.toLowerCase() !== 'a') {
             window.open(link.href, link.target || '_self');
           }
