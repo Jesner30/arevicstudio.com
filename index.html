@@ -33,7 +33,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- FAVICON -->
+<!-- FAVICON CON RUTAS ABSOLUTAS -->
 <link rel="icon" href="https://arevicstudio.com/index_files/favicon-dark.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="https://arevicstudio.com/index_files/favicon-light.png" media="(prefers-color-scheme: dark)">
 <link rel="shortcut icon" href="https://arevicstudio.com/index_files/favicon-dark.png">
@@ -135,28 +135,18 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
   }
 
 
-  /* ================= 1. APAGAR LOS RECORTES CUADRADOS DE CANVA ================= */
-  .xx0k8Q { 
-      display: none !important; /* Desaparece el rectángulo SVG responsable de las líneas de corte */
+  /* ================= 1. APAGAR LOS RECORTES CUADRADOS DE CANVA (ELIMINADO) ================= */
+  /* NO ocultamos el SVG de Canva (el botón original), solo le quitamos el drop-shadow que generaba el cuadrado invisible */
+  .xx0k8Q, .xx0k8Q * { 
+      filter: none !important; 
   }
-
-
-  /* ================= 2. EFECTOS DEL LOGO CENTRAL (NO ESTRUCTURALES) ================= */
   
   #LBh3ZCPplVGgMk88 img { 
-      cursor: pointer;
-      animation: logo-breathe 4s infinite alternate ease-in-out;
+      filter: none !important; /* Quitar recorte cuadrado del logo central de Canva */
   }
-  
-  /* Radio MUY corto para que no llegue a los bordes de la caja */
-  @keyframes logo-breathe {
-    0%   { filter: drop-shadow(0 0 3px rgba(239, 68, 68, 0.4)); }
-    100% { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6)); }
-  }
-  
 
 
-  /* ================= 3. BOTONES: NEÓN CIRCULAR Y SUPERFICIE INTERACTIVA ================= */
+  /* ================= 2. BOTONES: NEÓN CIRCULAR Y SUPERFICIE INTERACTIVA ================= */
 
   /* Asignación de colores neón por botón */
   #LBRpCKMJWnTnM1Fy { --neon: 94, 224, 224; } /* Sitio Web - Cyan */
@@ -176,31 +166,74 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     background-color: rgba(255, 255, 255, 0); /* Transparente en reposo */
     transition: all 0.25s ease !important;
     animation: arevic-pulse-idle 3.5s infinite alternate ease-in-out;
-    overflow: visible !important;
-    z-index: 10;
   }
 
-  /* Animación de latido inactivo: RADIOS MUY CORTOS (3px-8px) para evitar el corte cuadrado */
+  /* Animación de latido inactivo: RADIOS MUY CORTOS (3px-6px) para evitar el corte cuadrado invisible de Canva */
   @keyframes arevic-pulse-idle {
-    0%   { box-shadow: 0 0 3px 0px rgba(var(--neon), 0.15); }
-    100% { box-shadow: 0 0 8px 0px rgba(var(--neon), 0.4); }
+    0%   { box-shadow: 0 0 2px 0px rgba(var(--neon), 0.15); }
+    100% { box-shadow: 0 0 6px 0px rgba(var(--neon), 0.35); }
   }
 
-  /* Efecto Hover Integral: Superficie iluminada y desenfoque más estrecho */
+  /* Efecto Hover Integral: Superficie iluminada y desenfoque más estrecho y seguro */
   #LBRpCKMJWnTnM1Fy:hover, #LBCrSwxDzDvc4t9y:hover, #LBrY3GWBT9hccdHb:hover, #LBVr82yYYnsJc0df:hover,
   #LB8NQ3hgGmFzzq1z:hover, #LBnhGPyl8GVPfptD:hover, #LBpt780nQwQ6P2j0:hover, #LBfydFWm1yN7Tpwh:hover {
     animation: none !important;
     background-color: rgba(255, 255, 255, 0.05) !important; 
-    box-shadow: 0 0 12px 0px rgba(var(--neon), 0.65), inset 0 0 6px 0px rgba(var(--neon), 0.3) !important;
-    transform: scale(1.01); /* Escala más sutil para que no choque con los bordes de Canva */
-    z-index: 100 !important; /* Elevar capa para que hermanos no la tapen (Ej: Facebook) */
+    box-shadow: 0 0 10px 0px rgba(var(--neon), 0.65), inset 0 0 5px 0px rgba(var(--neon), 0.3) !important;
+    transform: scale(1.01); /* Escala ligerísima para evitar rebasar los márgenes de Canva */
+    z-index: 100 !important; /* Evita que botones adyacentes (como Facebook) lo tapen */
   }
 
-  /* Permitir hacer click en todo el botón haciendo al icono y texto invisibles para el cursor */
+  /* Permitir hacer click en todo el botón haciendo al icono y texto invisibles SOLO para el cursor */
   #LBRpCKMJWnTnM1Fy img, #LBCrSwxDzDvc4t9y img, #LBrY3GWBT9hccdHb img, #LBVr82yYYnsJc0df img,
   #LB8NQ3hgGmFzzq1z img, #LBnhGPyl8GVPfptD img, #LBpt780nQwQ6P2j0 img, #LBfydFWm1yN7Tpwh img,
   .a_GcMg {
     pointer-events: none;
+  }
+
+
+  /* ================= 3. NÚCLEO CENTRAL (RESTAURADO CON BRILLO PEQUEÑO Y EFECTO HOVER) ================= */
+  
+  #LBh3ZCPplVGgMk88 img { 
+      cursor: pointer;
+      transition: filter 0.3s ease, transform 0.3s ease;
+      animation: logo-breathe 4s infinite alternate ease-in-out;
+  }
+  
+  /* Radio de luz pequeño (6px-10px) para que no golpee los bordes invisibles */
+  @keyframes logo-breathe {
+    0%   { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.3)); transform: scale(1); }
+    100% { filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5)); transform: scale(1); }
+  }
+  
+  #LBh3ZCPplVGgMk88:hover img {
+    animation: none !important;
+    transform: scale(1.02);
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.7)) brightness(1.15) !important;
+  }
+
+  /* Anillos giratorios de fondo */
+  #LBh3ZCPplVGgMk88::before,
+  #LBh3ZCPplVGgMk88::after {
+    content: ''; position: absolute; left: 50%; top: 50%;
+    border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
+  }
+  #LBh3ZCPplVGgMk88::before {
+    width: calc(100% + 34px); height: calc(100% + 34px);
+    border: 1.5px dashed rgba(94, 224, 224, 0.38);
+    border-top-color: rgba(239, 68, 68, 0.55); border-right-color: rgba(239, 68, 68, 0.55);
+    animation: arevic-ring-spin 16s linear infinite;
+    z-index: -1;
+  }
+  #LBh3ZCPplVGgMk88::after {
+    width: calc(100% + 62px); height: calc(100% + 62px);
+    border: 1px dotted rgba(239, 68, 68, 0.28);
+    animation: arevic-ring-spin 26s linear infinite reverse;
+    z-index: -1;
+  }
+  @keyframes arevic-ring-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
 
@@ -269,7 +302,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     }
   });
 
-  // Habilitar clic en el núcleo central redirigiendo a tu sitio
+  // Habilitar clic en el núcleo central redirigiendo a tu sitio en GitHub Pages
   const centerLogo = document.querySelector('#LBh3ZCPplVGgMk88');
   if(centerLogo) {
       centerLogo.addEventListener('click', () => {
