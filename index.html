@@ -143,22 +143,17 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 
   /* ================= 2. EFECTOS DEL LOGO CENTRAL (NO ESTRUCTURALES) ================= */
   
-  /* Se le aplica el filtro solo a la imagen para no desplazar ningún layout de Canva */
   #LBh3ZCPplVGgMk88 img { 
       cursor: pointer;
-      transition: filter 0.3s ease;
       animation: logo-breathe 4s infinite alternate ease-in-out;
   }
   
-  /* Radio reducido (6px-12px) para que no golpee los bordes invisibles */
+  /* Radio MUY corto para que no llegue a los bordes de la caja */
   @keyframes logo-breathe {
-    0%   { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4)); }
-    100% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6)); }
+    0%   { filter: drop-shadow(0 0 3px rgba(239, 68, 68, 0.4)); }
+    100% { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6)); }
   }
   
-  #LBh3ZCPplVGgMk88:hover img {
-    filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.8)) brightness(1.1) !important;
-  }
 
 
   /* ================= 3. BOTONES: NEÓN CIRCULAR Y SUPERFICIE INTERACTIVA ================= */
@@ -181,28 +176,31 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     background-color: rgba(255, 255, 255, 0); /* Transparente en reposo */
     transition: all 0.25s ease !important;
     animation: arevic-pulse-idle 3.5s infinite alternate ease-in-out;
+    overflow: visible !important;
+    z-index: 10;
   }
 
-  /* Animación de latido inactivo: RADIOS CORTOS (4px-10px) para evitar el corte cuadrado */
+  /* Animación de latido inactivo: RADIOS MUY CORTOS (3px-8px) para evitar el corte cuadrado */
   @keyframes arevic-pulse-idle {
-    0%   { box-shadow: 0 0 4px 0px rgba(var(--neon), 0.2); }
-    100% { box-shadow: 0 0 10px 0px rgba(var(--neon), 0.5); }
+    0%   { box-shadow: 0 0 3px 0px rgba(var(--neon), 0.15); }
+    100% { box-shadow: 0 0 8px 0px rgba(var(--neon), 0.4); }
   }
 
-  /* Efecto Hover Integral: Superficie iluminada e inflado del botón */
+  /* Efecto Hover Integral: Superficie iluminada y desenfoque más estrecho */
   #LBRpCKMJWnTnM1Fy:hover, #LBCrSwxDzDvc4t9y:hover, #LBrY3GWBT9hccdHb:hover, #LBVr82yYYnsJc0df:hover,
   #LB8NQ3hgGmFzzq1z:hover, #LBnhGPyl8GVPfptD:hover, #LBpt780nQwQ6P2j0:hover, #LBfydFWm1yN7Tpwh:hover {
     animation: none !important;
     background-color: rgba(255, 255, 255, 0.05) !important; 
-    box-shadow: 0 0 16px 1px rgba(var(--neon), 0.7), inset 0 0 8px 1px rgba(var(--neon), 0.4) !important;
-    transform: scale(1.02);
+    box-shadow: 0 0 12px 0px rgba(var(--neon), 0.65), inset 0 0 6px 0px rgba(var(--neon), 0.3) !important;
+    transform: scale(1.01); /* Escala más sutil para que no choque con los bordes de Canva */
+    z-index: 100 !important; /* Elevar capa para que hermanos no la tapen (Ej: Facebook) */
   }
 
-  /* Dejar los íconos de colores EXACTAMENTE igual, solo hacerlos transparentes al clic */
+  /* Permitir hacer click en todo el botón haciendo al icono y texto invisibles para el cursor */
   #LBRpCKMJWnTnM1Fy img, #LBCrSwxDzDvc4t9y img, #LBrY3GWBT9hccdHb img, #LBVr82yYYnsJc0df img,
   #LB8NQ3hgGmFzzq1z img, #LBnhGPyl8GVPfptD img, #LBpt780nQwQ6P2j0 img, #LBfydFWm1yN7Tpwh img,
   .a_GcMg {
-    pointer-events: none; /* Traspasa el click hacia el contenedor principal */
+    pointer-events: none;
   }
 
 
