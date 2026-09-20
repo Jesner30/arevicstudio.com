@@ -33,7 +33,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- SOLUCIÓN FAVICON: Rutas absolutas forzadas -->
+<!-- FAVICON -->
 <link rel="icon" href="https://arevicstudio.com/index_files/favicon-dark.png" media="(prefers-color-scheme: light)">
 <link rel="icon" href="https://arevicstudio.com/index_files/favicon-light.png" media="(prefers-color-scheme: dark)">
 <link rel="shortcut icon" href="https://arevicstudio.com/index_files/favicon-dark.png">
@@ -135,16 +135,33 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
   }
 
 
-  /* ================= 1. APAGAR RECORTES Y BRILLOS DEFECTUOSOS DE CANVA ================= */
-  .xx0k8Q, .xx0k8Q * { 
-      filter: none !important; /* Elimina cualquier drop-shadow que Canva haya inyectado */
+  /* ================= 1. APAGAR LOS RECORTES CUADRADOS DE CANVA ================= */
+  .xx0k8Q { 
+      display: none !important; /* Desaparece el rectángulo SVG responsable de las líneas de corte */
   }
+
+
+  /* ================= 2. EFECTOS DEL LOGO CENTRAL (NO ESTRUCTURALES) ================= */
+  
+  /* Se le aplica el filtro solo a la imagen para no desplazar ningún layout de Canva */
   #LBh3ZCPplVGgMk88 img { 
-      filter: none !important; /* Elimina el drop-shadow sobre el PNG central que causaba bordes rectos */
+      cursor: pointer;
+      transition: filter 0.3s ease;
+      animation: logo-breathe 4s infinite alternate ease-in-out;
+  }
+  
+  /* Radio reducido (6px-12px) para que no golpee los bordes invisibles */
+  @keyframes logo-breathe {
+    0%   { filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.4)); }
+    100% { filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.6)); }
+  }
+  
+  #LBh3ZCPplVGgMk88:hover img {
+    filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.8)) brightness(1.1) !important;
   }
 
 
-  /* ================= 2. BOTONES: NEÓN CIRCULAR Y SUPERFICIE DE CRISTAL ================= */
+  /* ================= 3. BOTONES: NEÓN CIRCULAR Y SUPERFICIE INTERACTIVA ================= */
 
   /* Asignación de colores neón por botón */
   #LBRpCKMJWnTnM1Fy { --neon: 94, 224, 224; } /* Sitio Web - Cyan */
@@ -162,113 +179,30 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     border-radius: 40px !important; /* Curvatura tipo píldora */
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0); /* Transparente en reposo */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+    transition: all 0.25s ease !important;
     animation: arevic-pulse-idle 3.5s infinite alternate ease-in-out;
-    overflow: visible !important; /* Evita cualquier recorte */
   }
 
-  /* Animación de latido inactivo (brillo liso sin esquinas) */
+  /* Animación de latido inactivo: RADIOS CORTOS (4px-10px) para evitar el corte cuadrado */
   @keyframes arevic-pulse-idle {
-    0%   { box-shadow: 0 0 10px 0px rgba(var(--neon), 0.2); }
-    100% { box-shadow: 0 0 25px 2px rgba(var(--neon), 0.5); }
+    0%   { box-shadow: 0 0 4px 0px rgba(var(--neon), 0.2); }
+    100% { box-shadow: 0 0 10px 0px rgba(var(--neon), 0.5); }
   }
 
-  /* Efecto Hover Integral: Superficie brillante, volumen interno y expansión */
+  /* Efecto Hover Integral: Superficie iluminada e inflado del botón */
   #LBRpCKMJWnTnM1Fy:hover, #LBCrSwxDzDvc4t9y:hover, #LBrY3GWBT9hccdHb:hover, #LBVr82yYYnsJc0df:hover,
   #LB8NQ3hgGmFzzq1z:hover, #LBnhGPyl8GVPfptD:hover, #LBpt780nQwQ6P2j0:hover, #LBfydFWm1yN7Tpwh:hover {
-    animation: none !important; /* Detenemos el latido para que el hover domine */
-    background-color: rgba(255, 255, 255, 0.06) !important; /* Ilumina la superficie del botón */
-    box-shadow: 0 0 35px 5px rgba(var(--neon), 0.85), inset 0 0 15px 1px rgba(var(--neon), 0.5) !important;
-    transform: scale(1.03);
+    animation: none !important;
+    background-color: rgba(255, 255, 255, 0.05) !important; 
+    box-shadow: 0 0 16px 1px rgba(var(--neon), 0.7), inset 0 0 8px 1px rgba(var(--neon), 0.4) !important;
+    transform: scale(1.02);
   }
 
-  /* Asegurar que el ratón no se atore en los iconos y textos internos */
+  /* Dejar los íconos de colores EXACTAMENTE igual, solo hacerlos transparentes al clic */
   #LBRpCKMJWnTnM1Fy img, #LBCrSwxDzDvc4t9y img, #LBrY3GWBT9hccdHb img, #LBVr82yYYnsJc0df img,
   #LB8NQ3hgGmFzzq1z img, #LBnhGPyl8GVPfptD img, #LBpt780nQwQ6P2j0 img, #LBfydFWm1yN7Tpwh img,
   .a_GcMg {
     pointer-events: none; /* Traspasa el click hacia el contenedor principal */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  }
-
-  /* El icono hace un 'pop' y brilla al pasar el ratón por el botón */
-  #LBRpCKMJWnTnM1Fy:hover img, #LBCrSwxDzDvc4t9y:hover img, #LBrY3GWBT9hccdHb:hover img, #LBVr82yYYnsJc0df:hover img,
-  #LB8NQ3hgGmFzzq1z:hover img, #LBnhGPyl8GVPfptD:hover img, #LBpt780nQwQ6P2j0:hover img, #LBfydFWm1yN7Tpwh:hover img {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 8px rgba(var(--neon), 0.95)) brightness(1.2) !important;
-  }
-
-  /* Ligero resplandor en el texto */
-  #LBRpCKMJWnTnM1Fy:hover .a_GcMg, #LBCrSwxDzDvc4t9y:hover .a_GcMg, #LBrY3GWBT9hccdHb:hover .a_GcMg, #LBVr82yYYnsJc0df:hover .a_GcMg,
-  #LB8NQ3hgGmFzzq1z:hover .a_GcMg, #LBnhGPyl8GVPfptD:hover .a_GcMg, #LBpt780nQwQ6P2j0:hover .a_GcMg, #LBfydFWm1yN7Tpwh:hover .a_GcMg {
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-  }
-
-
-  /* ================= 3. NÚCLEO CENTRAL: LUZ RADIAL NATURAL ================= */
-
-  #LBh3ZCPplVGgMk88 {
-    position: relative;
-    overflow: visible !important;
-  }
-
-  /* Anillos giratorios de fondo */
-  #LBh3ZCPplVGgMk88::before,
-  #LBh3ZCPplVGgMk88::after {
-    content: ''; position: absolute; left: 50%; top: 50%;
-    border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%);
-  }
-  #LBh3ZCPplVGgMk88::before {
-    width: calc(100% + 34px); height: calc(100% + 34px);
-    border: 1.5px dashed rgba(94, 224, 224, 0.38);
-    border-top-color: rgba(239, 68, 68, 0.55); border-right-color: rgba(239, 68, 68, 0.55);
-    animation: arevic-ring-spin 16s linear infinite;
-    z-index: 1;
-  }
-  #LBh3ZCPplVGgMk88::after {
-    width: calc(100% + 62px); height: calc(100% + 62px);
-    border: 1px dotted rgba(239, 68, 68, 0.28);
-    animation: arevic-ring-spin 26s linear infinite reverse;
-    z-index: 1;
-  }
-  @keyframes arevic-ring-spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-
-  /* La luz del centro se pinta AHORA con un degradado radial detrás de la imagen (Imposible de recortar) */
-  .Izwocg::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 60%; height: 60%; /* Tamaño de la luz central */
-    background: radial-gradient(circle, rgba(239, 68, 68, 0.7) 0%, rgba(94, 224, 224, 0.3) 50%, transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    pointer-events: none;
-    animation: arevic-center-pulse 3.5s infinite alternate ease-in-out;
-  }
-
-  @keyframes arevic-center-pulse {
-    0%   { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-    100% { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
-  }
-
-  /* Comportamiento vivo del logo central (Efecto Botón) */
-  #LBh3ZCPplVGgMk88 img { 
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    animation: logo-breathe 4s infinite alternate ease-in-out;
-    position: relative;
-    z-index: 2;
-  }
-  @keyframes logo-breathe {
-    0%   { transform: scale(1); filter: brightness(1); }
-    100% { transform: scale(1.02); filter: brightness(1.15); }
-  }
-  #LBh3ZCPplVGgMk88:hover img {
-    transform: scale(1.06);
-    filter: brightness(1.3) drop-shadow(0 0 15px rgba(239, 68, 68, 0.4)) !important;
   }
 
 
@@ -328,7 +262,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
       const link = btn.querySelector('a');
       if (link) {
         btn.addEventListener('click', (e) => {
-          // Previene el ciclo infinito si el usuario le atina exactamente a la etiqueta <a> por casualidad
+          // Previene el ciclo infinito
           if (e.target.tagName.toLowerCase() !== 'a') {
             window.open(link.href, link.target || '_blank');
           }
@@ -337,7 +271,7 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
     }
   });
 
-  // Habilitar clic en el núcleo central redirigiendo a tu root domain
+  // Habilitar clic en el núcleo central redirigiendo a tu sitio
   const centerLogo = document.querySelector('#LBh3ZCPplVGgMk88');
   if(centerLogo) {
       centerLogo.addEventListener('click', () => {
