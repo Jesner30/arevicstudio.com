@@ -40,11 +40,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: max(16px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom)) 12px;
+      padding: max(12px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom)) 12px;
     }
 
     /* ========================================================
-       1. FONDO COMPLETO (BASE + LUZ SUPERIOR + CIRCUITOS + GIRO 90°)
+       1. FONDO COMPUESTO: LUZ SUPERIOR + CIRCUITOS (GIRO 90°)
        ======================================================== */
     .hud-bg-solid {
       position: fixed;
@@ -53,65 +53,65 @@
       z-index: -3;
     }
 
-    /* Luz / Resplandor superior original */
-    .hud-top-light {
+    /* Efecto de resplandor / luz superior */
+    .hud-top-flare {
       position: fixed;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 100vw;
       max-width: 1200px;
-      height: 260px;
+      height: 280px;
       background: url('./index_files/d65c4ab531d8aaf7f22ab3abc5617576.png?v=4') center top / contain no-repeat;
-      opacity: 0.55;
+      opacity: 0.65;
       pointer-events: none;
       z-index: -2;
     }
 
-    /* Capa de circuitos: 88057707fa37ae52ca1ba44eea053f03 */
-    .hud-circuit-layer {
+    /* Textura de circuitos: 88057707fa37ae52ca1ba44eea053f03 */
+    .hud-circuits-bg {
       position: fixed;
       top: 50%;
       left: 50%;
       width: 100vw;
-      max-width: 1400px;
+      max-width: 1250px;
       height: 100vh;
-      max-height: 820px;
-      transform: translate(-50%, -50%);
+      max-height: 640px;
+      transform: translate(-50%, -50%) rotate(0deg);
       background: url('./index_files/88057707fa37ae52ca1ba44eea053f03.png?v=4') center center / contain no-repeat;
-      opacity: 0.65;
+      opacity: 0.75;
       pointer-events: none;
       z-index: -1;
-      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.45s ease, height 0.45s ease;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.4s ease, height 0.4s ease;
     }
 
-    /* En vertical, gira 90 grados desde el centro */
+    /* En vertical: rotación de 90° desde el centro para abarcar toda la pantalla */
     @media (orientation: portrait) {
-      .hud-circuit-layer {
+      .hud-circuits-bg {
         width: 100vh;
-        max-width: none;
+        max-width: 900px;
         height: 100vw;
-        max-height: none;
+        max-height: 540px;
         transform: translate(-50%, -50%) rotate(90deg);
       }
     }
 
     /* ========================================================
-       2. CONTENEDOR Y CABECERA (NOMBRE AREVIC)
+       2. CONTENEDOR Y CABECERA (AREVIC)
        ======================================================== */
     .hud-wrapper {
       width: 100%;
-      max-width: 1360px;
+      max-width: 1350px;
       margin: auto 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      animation: arevic-fade 0.75s ease-out both;
+      animation: arevic-entrance 0.7s ease-out both;
     }
 
-    @keyframes arevic-fade {
-      from { opacity: 0; transform: translateY(12px); }
+    @keyframes arevic-entrance {
+      from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -122,10 +122,9 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
 
-    /* Archivo cd3904fefb5a62b8113aa801d6fbb49f: Nombre recortado AREVIC */
     .brand-img {
       height: 44px;
       width: auto;
@@ -135,11 +134,11 @@
     }
 
     .brand-slogan {
-      font-size: 0.7rem;
-      letter-spacing: 0.26em;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
       color: #7b8fa3;
       text-transform: uppercase;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
     /* ========================================================
@@ -152,7 +151,7 @@
       justify-content: center;
     }
 
-    /* --- MODO HORIZONTAL (Desktop y móviles girados) --- */
+    /* --- MODO HORIZONTAL (Desktop y Móviles girados) --- */
     @media (orientation: landscape) {
       .hud-grid {
         grid-template-columns: 240px 380px 240px;
@@ -161,61 +160,54 @@
           "social   core    contacto"
           "media    core    portafolio"
           "media    web     portafolio";
-        gap: 12px 24px;
-      }
-      .hud-brand {
-        margin-bottom: -15px;
+        gap: 10px 24px;
       }
     }
 
-    /* Solución de solapamiento en teléfonos horizontales (altura baja) */
+    /* Ajuste en pantallas apaisadas de baja altura (teléfonos en horizontal) */
     @media (orientation: landscape) and (max-height: 560px) {
       body {
         justify-content: flex-start;
       }
       .hud-wrapper {
         margin: 0;
-        padding-top: 6px;
+        padding-top: 4px;
       }
       .hud-grid {
         grid-template-columns: 200px 260px 200px;
-        gap: 6px 14px;
+        gap: 5px 14px;
       }
       .brand-img {
         height: 28px;
       }
       .brand-slogan {
-        font-size: 0.55rem;
+        font-size: 0.52rem;
       }
       .hud-btn {
-        height: 38px !important;
+        height: 36px !important;
         padding: 0 10px !important;
       }
+      .btn-icon-box {
+        width: 18px !important;
+        height: 18px !important;
+      }
       .btn-text {
-        font-size: 0.68rem !important;
+        font-size: 0.66rem !important;
       }
       .hud-core {
-        width: 190px !important;
-        height: 190px !important;
-      }
-      .core-rotate-ring-cw {
-        width: 185px !important;
-        height: 185px !important;
-      }
-      .core-rotate-ring-ccw {
-        width: 195px !important;
-        height: 195px !important;
-      }
-      .core-bezel {
         width: 180px !important;
         height: 180px !important;
       }
+      .core-bezel {
+        width: 172px !important;
+        height: 172px !important;
+      }
       .core-monolith {
-        width: 105px !important;
-        height: 145px !important;
+        width: 100px !important;
+        height: 140px !important;
       }
       .hud-footer {
-        margin-top: 14px !important;
+        margin-top: 10px !important;
       }
     }
 
@@ -229,33 +221,34 @@
           "core         core"
           "media        portafolio"
           "web          web";
-        gap: 10px 12px;
+        gap: 8px 10px;
         max-width: 440px;
       }
       .brand-img {
         height: 36px;
       }
       .brand-slogan {
-        font-size: 0.62rem;
+        font-size: 0.6rem;
       }
       .hud-btn {
-        height: 42px;
+        height: 40px;
         padding: 0 10px;
       }
       .btn-icon-box {
-        width: 20px;
-        height: 20px;
+        width: 19px;
+        height: 19px;
         margin-right: 6px;
       }
       .btn-text {
         font-size: 0.68rem;
         letter-spacing: 0.08em;
       }
+      /* Reducción de ancho en vertical para optimizar pantalla */
       .group-web {
         align-items: center;
       }
       .group-web .hud-btn {
-        max-width: 210px !important;
+        max-width: 205px !important;
       }
     }
 
@@ -269,12 +262,12 @@
     .hud-group {
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 8px;
       width: 100%;
     }
 
     .group-label {
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #7b8fa3;
@@ -359,7 +352,7 @@
       color: #f0f5fb;
     }
 
-    /* Colores Neón */
+    /* Colores Neón Específicos */
     .btn-facebook   { --neon: 24, 119, 242; }
     .btn-instagram  { --neon: 225, 48, 108; }
     .btn-tiktok     { --neon: 37, 244, 238; }
@@ -376,24 +369,24 @@
     .btn-servicios  { --neon: 255, 45, 85; }
 
     /* ========================================================
-       5. NÚCLEO CENTRAL ESCALADO AL TAMAÑO DEL ARO ROTATORIO
+       5. NÚCLEO CENTRAL: BOTÓN METÁLICO (b8ba...) ESCALADO
        ======================================================== */
     .hud-core {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 280px;
-      height: 280px;
+      width: 270px;
+      height: 270px;
       margin: 0 auto;
       cursor: pointer;
     }
 
-    /* Anillos rotatorios pegados al contorno exterior */
+    /* Aros rotatorios ajustados exactamente al borde del botón */
     .core-rotate-ring-cw {
       position: absolute;
-      width: 275px;
-      height: 275px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       border: 1.5px dashed rgba(94, 224, 224, 0.5);
       border-top-color: rgba(239, 68, 68, 0.85);
@@ -405,8 +398,8 @@
 
     .core-rotate-ring-ccw {
       position: absolute;
-      width: 285px;
-      height: 285px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
       border-radius: 50%;
       border: 1.2px dotted rgba(239, 68, 68, 0.45);
       animation: core-rotate-ccw 24s linear infinite;
@@ -424,21 +417,21 @@
       to   { transform: rotate(0deg); }
     }
 
-    /* Archivo b8ba21f3cbe2a78201a78adbe5a95815: Escala ampliada al tamaño del aro */
+    /* Archivo b8ba21f3cbe2a78201a78adbe5a95815: Escala completa al tamaño del aro */
     .core-bezel {
-      width: 268px;
-      height: 268px;
+      width: 96%;
+      height: 96%;
       object-fit: contain;
       position: absolute;
       z-index: 1;
-      filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.45));
+      filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.45));
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    /* Archivo b8d4fd5ed056d4d8599b73736d34cd5d: Isotipo recortado proporcional */
+    /* Archivo b8d4fd5ed056d4d8599b73736d34cd5d: Isotipo proporcional */
     .core-monolith {
-      width: 155px;
-      height: 215px;
+      width: 58%;
+      height: 80%;
       object-fit: contain;
       position: absolute;
       z-index: 2;
@@ -464,20 +457,16 @@
     /* Escala en modo vertical */
     @media (orientation: portrait) {
       .hud-core {
-        width: 220px;
-        height: 220px;
+        width: 205px;
+        height: 205px;
       }
-      .core-rotate-ring-cw  { width: 216px; height: 216px; }
-      .core-rotate-ring-ccw { width: 226px; height: 226px; }
-      .core-bezel           { width: 210px; height: 210px; }
-      .core-monolith        { width: 120px; height: 165px; }
     }
 
     /* ========================================================
-       6. PIE DE PÁGINA (FONDO ORIGINAL DE TEXTO)
+       6. PIE DE PÁGINA INSTITUCIONAL COMPLETO
        ======================================================== */
     .hud-footer {
-      margin-top: 22px;
+      margin-top: 18px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -490,7 +479,7 @@
       font-size: 0.82rem;
       letter-spacing: 0.52em;
       color: #7b8fa3;
-      font-weight: 500;
+      font-weight: 600;
       text-indent: 0.52em;
       text-transform: uppercase;
     }
@@ -516,15 +505,15 @@
 </head>
 <body>
 
-  <!-- Capas de fondo compuestas -->
+  <!-- Capas de fondo compuestas (Base + Luz superior + Circuitos con rotación) -->
   <div class="hud-bg-solid"></div>
-  <div class="hud-top-light"></div>
-  <div class="hud-circuit-layer"></div>
+  <div class="hud-top-flare"></div>
+  <div class="hud-circuits-bg"></div>
 
   <div class="hud-wrapper">
     <main class="hud-grid">
 
-      <!-- CABECERA: AREVIC (cd3904fefb5a62b8113aa801d6fbb49f) -->
+      <!-- CABECERA: NOMBRE AREVIC (cd3904fefb5a62b8113aa801d6fbb49f) -->
       <header class="hud-brand">
         <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png?v=4" alt="AREVIC" class="brand-img">
         <p class="brand-slogan">Arquitectura en evolución constante</p>
@@ -684,7 +673,7 @@
 
     </main>
 
-    <!-- CIERRE INFERIOR DE MARCA -->
+    <!-- CIERRE DE MARCA / FONDO INFERIOR -->
     <footer class="hud-footer">
       <div class="footer-studio">STUDIO</div>
       <div class="footer-slogan">Arquitectura en evolución constante</div>
@@ -693,18 +682,18 @@
   </div>
 
   <script>
-    // Detección de giro en tiempo real
-    function checkOrientation() {
+    // Detección reactiva de giro
+    function handleOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
       document.body.classList.toggle('is-landscape', isLandscape);
       document.body.classList.toggle('is-portrait', !isLandscape);
     }
 
-    window.addEventListener('resize', checkOrientation);
-    window.addEventListener('orientationchange', checkOrientation);
-    checkOrientation();
+    window.addEventListener('resize', handleOrientation);
+    window.addEventListener('orientationchange', handleOrientation);
+    handleOrientation();
 
-    // Redirección del núcleo
+    // Redirección central interactiva
     document.getElementById('arevic-core-button').addEventListener('click', function() {
       window.open('https://arevicstudio.com/', '_blank');
     });
