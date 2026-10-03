@@ -60,21 +60,6 @@
       z-index: -3;
     }
 
-    /* Luz / Resplandor superior original ambiental */
-    .hud-top-flare {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100vw;
-      max-width: 1300px;
-      height: 320px;
-      background: url('./index_files/d65c4ab531d8aaf7f22ab3abc5617576.png?v=13') center top / contain no-repeat;
-      opacity: 0.55;
-      pointer-events: none;
-      z-index: 1;
-    }
-
     /* ========================================================
        2. CONTENEDOR PRINCIPAL Y CABECERA (AREVIC)
        ======================================================== */
@@ -132,7 +117,7 @@
     }
 
     /* ========================================================
-       3. GRILLA RESPONSIVA (COCKPIT ABIERTO Y PROPORCIONADO)
+       3. GRILLA RESPONSIVA
        ======================================================== */
     .hud-grid {
       display: grid;
@@ -269,9 +254,7 @@
       width: 100%;
     }
 
-    /* ========================================================
-       TÍTULOS DE GRUPOS MÁS GRANDES Y LEGIBLES
-       ======================================================== */
+    /* Títulos de grupos grandes y legibles */
     .group-label {
       font-size: 0.95rem;
       font-weight: 700;
@@ -384,7 +367,7 @@
     .btn-servicios  { --neon: 255, 45, 85; }
 
     /* ========================================================
-       5. NÚCLEO CENTRAL CON OPACIDAD DE CIRCUITOS AL 27%
+       5. NÚCLEO CENTRAL CON CIRCUITOS AL 27% Y LOGO CENTRADO
        ======================================================== */
     .hud-core {
       position: relative;
@@ -397,7 +380,7 @@
       cursor: pointer;
     }
 
-    /* Capa de Circuitos (88057707...): opacidad exacta al 27% */
+    /* Capa de Circuitos (88057707...): opacidad al 27% */
     .core-circuits-backdrop {
       position: absolute;
       top: 50%;
@@ -417,7 +400,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      opacity: 0.27; /* 27% sólido especificado */
+      opacity: 0.27; /* 27% sólido */
       mix-blend-mode: screen;
       transform-origin: center;
     }
@@ -486,20 +469,21 @@
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    /* Isotipo 3D calibrado estrictamente al círculo interior */
+    /* Isotipo 3D calibrado y desplazado hacia arriba para centrarlo ópticamente */
     .core-monolith {
       position: absolute;
       width: 44%;
       height: 60%;
       object-fit: contain;
       z-index: 2;
+      transform: translateY(-8px); /* Subido a la altura de la línea del circuito como indicaste */
       animation: monolith-pulse 4s infinite alternate ease-in-out;
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
     @keyframes monolith-pulse {
-      0%   { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); transform: scale(0.98); }
-      100% { filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); transform: scale(1.01); }
+      0%   { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); transform: translateY(-8px) scale(0.98); }
+      100% { filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); transform: translateY(-8px) scale(1.01); }
     }
 
     .hud-core:hover .core-bezel {
@@ -508,7 +492,7 @@
     }
 
     .hud-core:hover .core-monolith {
-      transform: scale(1.02);
+      transform: translateY(-8px) scale(1.02);
       filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.95)) drop-shadow(0 0 12px rgba(0, 240, 255, 0.6)) brightness(1.2);
     }
 
@@ -566,14 +550,12 @@
 
   <div class="hud-page-wrap">
     
-    <div class="hud-top-flare"></div>
-
     <div class="hud-wrapper">
       <main class="hud-grid">
 
         <!-- CABECERA: AREVIC + CONCEPTO EN UNA LÍNEA -->
         <header class="hud-brand">
-          <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png?v=13" alt="AREVIC" class="brand-img">
+          <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png?v=14" alt="AREVIC" class="brand-img">
           <p class="brand-slogan">
             <span class="ak-red">AR</span>quitectura en <span class="ak-red">EV</span>olución e <span class="ak-red">I</span>ntegración <span class="ak-red">C</span>onceptual
           </p>
@@ -585,21 +567,21 @@
           
           <a href="https://www.facebook.com/share/19asS9LdkT/" target="_blank" rel="noopener nofollow" class="hud-btn btn-facebook">
             <div class="btn-icon-box">
-              <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png?v=13" alt="Facebook">
+              <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png?v=14" alt="Facebook">
             </div>
             <span class="btn-text">Facebook</span>
           </a>
 
           <a href="https://www.instagram.com/arevic_studio?utm_source=qr&stkn=MTc3dXY1czJhNjYxYg%3D%3D" target="_blank" rel="noopener nofollow" class="hud-btn btn-instagram">
             <div class="btn-icon-box">
-              <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png?v=13" alt="Instagram">
+              <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png?v=14" alt="Instagram">
             </div>
             <span class="btn-text">Instagram</span>
           </a>
 
           <a href="https://www.tiktok.com/@arevic_studio?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener nofollow" class="hud-btn btn-tiktok">
             <div class="btn-icon-box">
-              <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png?v=13" alt="TikTok">
+              <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png?v=14" alt="TikTok">
             </div>
             <span class="btn-text">TikTok</span>
           </a>
@@ -611,7 +593,7 @@
 
           <a href="https://wa.link/t1ypia" target="_blank" rel="noopener nofollow" class="hud-btn btn-whatsapp">
             <div class="btn-icon-box">
-              <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png?v=13" alt="WhatsApp">
+              <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png?v=14" alt="WhatsApp">
             </div>
             <span class="btn-text">WhatsApp</span>
           </a>
@@ -637,22 +619,22 @@
           </a>
         </section>
 
-        <!-- NÚCLEO CENTRAL CON CIRCUITOS AL 27% DE OPACIDAD -->
+        <!-- NÚCLEO CENTRAL CON CIRCUITOS AL 27% Y LOGO CENTRADO EN LA LÍNEA -->
         <div class="hud-core" id="arevic-core-button" title="Ir al Portal Oficial AREVIC">
           
           <div class="core-circuits-backdrop">
-            <img src="./index_files/88057707fa37ae52ca1ba44eea053f03.png?v=13" alt="Circuitos AREVIC" class="core-circuits-img">
+            <img src="./index_files/88057707fa37ae52ca1ba44eea053f03.png?v=14" alt="Circuitos AREVIC" class="core-circuits-img">
           </div>
 
           <div class="core-ring-cw"></div>
           <div class="core-ring-ccw"></div>
           
           <div class="core-bezel-crop">
-            <img class="core-bezel" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png?v=13" alt="Bisel Core">
+            <img class="core-bezel" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png?v=14" alt="Bisel Core">
           </div>
           
-          <!-- Monolito en su tamaño exacto dentro del círculo interior -->
-          <img class="core-monolith" src="./index_files/b8d4fd5ed056d4d8599b73736d34cd5d.png?v=13" alt="Isotipo AREVIC">
+          <!-- Monolito subido a la altura exacta de la línea de los circuitos -->
+          <img class="core-monolith" src="./index_files/b8d4fd5ed056d4d8599b73736d34cd5d.png?v=14" alt="Isotipo AREVIC">
         </div>
 
         <!-- SECCIÓN MEDIA -->
@@ -661,7 +643,7 @@
 
           <a href="https://www.youtube.com/@AREVICStudio" target="_blank" rel="noopener nofollow" class="hud-btn btn-youtube">
             <div class="btn-icon-box">
-              <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png?v=13" alt="YouTube">
+              <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png?v=14" alt="YouTube">
             </div>
             <span class="btn-text">YouTube</span>
           </a>
@@ -683,7 +665,7 @@
 
           <a href="https://www.behance.net/jesnervelasquez18" target="_blank" rel="noopener nofollow" class="hud-btn btn-behance">
             <div class="btn-icon-box">
-              <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png?v=13" alt="Behance">
+              <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png?v=14" alt="Behance">
             </div>
             <span class="btn-text">Behance</span>
           </a>
@@ -717,14 +699,14 @@
 
           <a href="https://arevic.framer.website/" target="_blank" rel="noopener nofollow" class="hud-btn btn-website">
             <div class="btn-icon-box">
-              <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png?v=13" alt="Sitio Web">
+              <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png?v=14" alt="Sitio Web">
             </div>
             <span class="btn-text">AREVIC Studio</span>
           </a>
 
           <a href="https://tour.panoee.net/Pizza_Don_Chico_AREVIC" target="_blank" rel="noopener nofollow" class="hud-btn btn-tour">
             <div class="btn-icon-box">
-              <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png?v=13" alt="Tour Virtual">
+              <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png?v=14" alt="Tour Virtual">
             </div>
             <span class="btn-text">Tour</span>
           </a>
