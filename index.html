@@ -13,8 +13,8 @@
     :root {
       --bg-dark: #080d16;
       --font-hud: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --core-size-pc: 360px;
-      --btn-width-pc: 230px;
+      --core-size-pc: 380px;
+      --btn-width-pc: 215px;
     }
 
     * {
@@ -37,17 +37,22 @@
       position: relative;
     }
 
-    body {
+    /* ========================================================
+       1. ESCENA UNIFICADA (SCROLL Y FONDO UNIDOS)
+       ======================================================== */
+    .hud-page-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: max(24px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom)) 16px;
+      padding: max(20px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom)) 16px;
+      overflow: visible;
     }
 
-    /* ========================================================
-       1. FONDO COMPUESTO CON SCROLL Y DESPLAZAMIENTO UNIFICADO
-       ======================================================== */
     .hud-bg-solid {
       position: fixed;
       inset: 0;
@@ -55,29 +60,28 @@
       z-index: -3;
     }
 
-    /* Resplandor superior suave y difuso */
+    /* Luz / Resplandor superior original */
     .hud-top-flare {
       position: absolute;
-      top: -60px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
       width: 100vw;
-      max-width: 1400px;
-      height: 380px;
-      background: url('./index_files/d65c4ab531d8aaf7f22ab3abc5617576.png?v=9') center top / 100% auto no-repeat;
-      opacity: 0.45;
-      mix-blend-mode: screen;
+      max-width: 1300px;
+      height: 320px;
+      background: url('./index_files/d65c4ab531d8aaf7f22ab3abc5617576.png?v=12') center top / contain no-repeat;
+      opacity: 0.55;
       pointer-events: none;
-      z-index: -2;
+      z-index: 1;
     }
 
     /* ========================================================
-       2. CONTENEDOR PRINCIPAL
+       2. CONTENEDOR Y CABECERA (AREVIC ELEVADO)
        ======================================================== */
     .hud-wrapper {
       position: relative;
       width: 100%;
-      max-width: 1380px;
+      max-width: 1360px;
       margin: auto 0;
       display: flex;
       flex-direction: column;
@@ -92,7 +96,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cabecera elevada hacia la zona superior */
     .hud-brand {
       grid-area: brand;
       display: flex;
@@ -100,23 +103,23 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      margin-top: 8px;
-      margin-bottom: 42px; /* Espacio amplio hacia el centro */
+      margin-top: 6px;
+      margin-bottom: 38px;
     }
 
     .brand-img {
-      height: 52px;
+      height: 50px;
       width: auto;
-      max-width: 290px;
+      max-width: 280px;
       object-fit: contain;
       margin-bottom: 8px;
-      filter: drop-shadow(0 0 14px rgba(255, 30, 60, 0.55));
+      filter: drop-shadow(0 0 14px rgba(255, 30, 60, 0.5));
     }
 
-    /* Concepto nominativo estricto en una sola línea */
+    /* Concepto en una sola línea estricta */
     .brand-slogan {
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
       color: #9cb1c9;
       white-space: nowrap;
       display: inline-block;
@@ -129,7 +132,7 @@
     }
 
     /* ========================================================
-       3. GRILLA RESPONSIVA (COCKPIT ABIERTO EN PC)
+       3. GRILLA RESPONSIVA
        ======================================================== */
     .hud-grid {
       display: grid;
@@ -138,7 +141,7 @@
       justify-content: center;
     }
 
-    /* MODO HORIZONTAL (Desktop / Móvil apaisado: amplio y sin apretar) */
+    /* MODO HORIZONTAL (Desktop / Móvil apaisado) */
     @media (orientation: landscape) {
       .hud-grid {
         grid-template-columns: var(--btn-width-pc) var(--core-size-pc) var(--btn-width-pc);
@@ -147,24 +150,24 @@
           "social   core    contacto"
           "media    core    portafolio"
           "media    web     portafolio";
-        gap: 16px 64px; /* Separación amplia de cabina Sci-Fi */
+        gap: 14px 54px;
       }
       .hud-btn {
         max-width: var(--btn-width-pc);
       }
       .group-web .hud-btn {
-        max-width: 240px;
+        max-width: 220px;
         margin: 0 auto;
       }
     }
 
-    /* Pantallas horizontales de baja altura (teléfonos apaisados) */
+    /* Teléfono en horizontal */
     @media (orientation: landscape) and (max-height: 560px) {
       :root {
         --core-size-pc: 210px;
-        --btn-width-pc: 185px;
+        --btn-width-pc: 175px;
       }
-      body {
+      .hud-page-wrap {
         justify-content: flex-start;
       }
       .hud-wrapper {
@@ -172,11 +175,11 @@
         padding-top: 4px;
       }
       .hud-brand {
-        margin-top: 0;
-        margin-bottom: 14px;
+        margin-top: -6px;
+        margin-bottom: 12px;
       }
       .brand-img {
-        height: 32px;
+        height: 30px;
       }
       .brand-slogan {
         font-size: 0.54rem;
@@ -184,7 +187,7 @@
       }
       .hud-grid {
         grid-template-columns: var(--btn-width-pc) 240px var(--btn-width-pc);
-        gap: 6px 20px;
+        gap: 6px 18px;
       }
       .hud-btn {
         height: 36px !important;
@@ -195,13 +198,13 @@
         height: 18px !important;
       }
       .btn-text {
-        font-size: 0.68rem !important;
+        font-size: 0.66rem !important;
       }
       .hud-footer {
-        margin-top: 16px !important;
+        margin-top: 14px !important;
       }
       .footer-studio {
-        font-size: 26px !important;
+        font-size: 24px !important;
       }
     }
 
@@ -222,7 +225,7 @@
         max-width: 440px;
       }
       .hud-brand {
-        margin-bottom: 18px;
+        margin-bottom: 16px;
       }
       .brand-img {
         height: 38px;
@@ -248,7 +251,7 @@
         align-items: center;
       }
       .group-web .hud-btn {
-        max-width: 215px !important;
+        max-width: 210px !important;
       }
     }
 
@@ -266,16 +269,21 @@
       width: 100%;
     }
 
+    /* ========================================================
+       TÍTULOS DE GRUPOS MÁS GRANDES Y LEGIBLES
+       ======================================================== */
     .group-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: #7b8fa3;
+      color: #b0c9e2;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      margin-bottom: 2px;
+      gap: 8px;
+      margin-bottom: 4px;
+      text-shadow: 0 0 10px rgba(154, 180, 207, 0.35);
     }
 
     .group-label::before,
@@ -283,7 +291,14 @@
       content: '';
       flex: 1;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(94, 224, 224, 0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(94, 224, 224, 0.45), transparent);
+    }
+
+    @media (orientation: portrait) {
+      .group-label {
+        font-size: 0.82rem;
+        letter-spacing: 0.22em;
+      }
     }
 
     /* ========================================================
@@ -305,8 +320,8 @@
       box-shadow: 0 0 6px 0px rgba(var(--neon), 0.16), inset 0 0 6px rgba(var(--neon), 0.1);
       backdrop-filter: blur(8px);
       width: 100%;
-      height: 48px;
-      padding: 0 14px;
+      height: 46px;
+      padding: 0 12px;
     }
 
     .hud-btn::before {
@@ -326,13 +341,13 @@
     }
 
     .btn-icon-box {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-right: 10px;
+      margin-right: 8px;
     }
 
     .btn-icon-box img,
@@ -344,9 +359,9 @@
     }
 
     .btn-text {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       white-space: nowrap;
       color: #f0f5fb;
@@ -369,7 +384,7 @@
     .btn-servicios  { --neon: 255, 45, 85; }
 
     /* ========================================================
-       5. NÚCLEO CENTRAL CON BASE METÁLICA (b8ba...) Y MONOLITO ESCALADOS
+       5. NÚCLEO CENTRAL Y LOGO EN SU TAMAÑO EXACTO
        ======================================================== */
     .hud-core {
       position: relative;
@@ -382,36 +397,35 @@
       cursor: pointer;
     }
 
-    /* Capa de Circuitos (88057707...): centrada y desplegada */
+    /* Circuitos: opacidad fijada en 27% sólido */
     .core-circuits-backdrop {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 1100px;
-      height: 560px;
+      width: 1080px;
+      height: 540px;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
       z-index: -1;
-      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.45s ease;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.45s ease, height 0.45s ease;
     }
 
     .core-circuits-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      opacity: 0.95;
+      opacity: 0.27; /* Exactamente 27% sólido como solicitaste */
       mix-blend-mode: screen;
-      filter: brightness(1.25) contrast(1.15) drop-shadow(0 0 10px rgba(0, 220, 255, 0.35));
+      transform-origin: center;
     }
 
-    /* Rotación de 90° en vertical */
     @media (orientation: portrait) {
       .core-circuits-backdrop {
-        width: 820px;
-        height: 480px;
+        width: 800px;
+        height: 440px;
         transform: translate(-50%, -50%) rotate(90deg);
       }
     }
@@ -432,8 +446,8 @@
 
     .core-ring-ccw {
       position: absolute;
-      width: calc(100% + 20px);
-      height: calc(100% + 20px);
+      width: calc(100% + 22px);
+      height: calc(100% + 22px);
       border-radius: 50%;
       border: 1.2px dotted rgba(239, 68, 68, 0.45);
       animation: core-rotate-ccw 24s linear infinite;
@@ -451,7 +465,7 @@
       to   { transform: rotate(0deg); }
     }
 
-    /* Contenedor circular exacto para el botón metálico */
+    /* Base metálica escalada al 100% del aro */
     .core-bezel-crop {
       position: absolute;
       width: 100%;
@@ -464,21 +478,20 @@
       z-index: 1;
     }
 
-    /* Archivo b8ba21f3cbe2a78201a78adbe5a95815: Escala ampliada que llena el aro */
     .core-bezel {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transform: scale(1.83); /* Llena la circunferencia exterior */
+      transform: scale(1.85);
       filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.5));
       transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    /* Archivo b8d4fd5ed056d4d8599b73736d34cd5d: Isotipo escalado al círculo interior */
+    /* Isotipo 3D reducido y enmarcado en el círculo interior */
     .core-monolith {
       position: absolute;
-      width: 60%;
-      height: 78%;
+      width: 44%; /* Ajustado al círculo interior exacto */
+      height: 60%;
       object-fit: contain;
       z-index: 2;
       animation: monolith-pulse 4s infinite alternate ease-in-out;
@@ -487,7 +500,7 @@
 
     @keyframes monolith-pulse {
       0%   { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); transform: scale(0.98); }
-      100% { filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); transform: scale(1.02); }
+      100% { filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); transform: scale(1.01); }
     }
 
     .hud-core:hover .core-bezel {
@@ -496,8 +509,8 @@
     }
 
     .hud-core:hover .core-monolith {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 26px rgba(239, 68, 68, 0.95)) drop-shadow(0 0 14px rgba(0, 240, 255, 0.6)) brightness(1.2);
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.95)) drop-shadow(0 0 12px rgba(0, 240, 255, 0.6)) brightness(1.2);
     }
 
     /* ========================================================
@@ -513,7 +526,7 @@
       pointer-events: none;
     }
 
-    /* STUDIO a 36px de altura y tipografía exacta */
+    /* STUDIO a 36px de altura y tipografía exacta de Canva */
     .footer-studio {
       font-size: 36px;
       line-height: 1;
@@ -551,197 +564,196 @@
 </head>
 <body>
 
-  <!-- Capas de fondo sólidas -->
   <div class="hud-bg-solid"></div>
-  <div class="hud-top-flare"></div>
 
-  <div class="hud-wrapper">
-    <main class="hud-grid">
+  <div class="hud-page-wrap">
+    
+    <div class="hud-top-flare"></div>
 
-      <!-- CABECERA: AREVIC ELEVADO + CONCEPTO OFICIAL EN UNA LÍNEA -->
-      <header class="hud-brand">
-        <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png?v=9" alt="AREVIC" class="brand-img">
-        <p class="brand-slogan">
-          <span class="ak-red">AR</span>quitectura en <span class="ak-red">EV</span>olución e <span class="ak-red">I</span>ntegración <span class="ak-red">C</span>onceptual
-        </p>
-      </header>
+    <div class="hud-wrapper">
+      <main class="hud-grid">
 
-      <!-- SECCIÓN SOCIAL -->
-      <section class="hud-group group-social">
-        <div class="group-label">Social</div>
-        
-        <a href="https://www.facebook.com/share/19asS9LdkT/" target="_blank" rel="noopener nofollow" class="hud-btn btn-facebook">
-          <div class="btn-icon-box">
-            <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png?v=9" alt="Facebook">
+        <!-- CABECERA: AREVIC + CONCEPTO EN UNA LÍNEA -->
+        <header class="hud-brand">
+          <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png?v=12" alt="AREVIC" class="brand-img">
+          <p class="brand-slogan">
+            <span class="ak-red">AR</span>quitectura en <span class="ak-red">EV</span>olución e <span class="ak-red">I</span>ntegración <span class="ak-red">C</span>onceptual
+          </p>
+        </header>
+
+        <!-- SECCIÓN SOCIAL -->
+        <section class="hud-group group-social">
+          <div class="group-label">Social</div>
+          
+          <a href="https://www.facebook.com/share/19asS9LdkT/" target="_blank" rel="noopener nofollow" class="hud-btn btn-facebook">
+            <div class="btn-icon-box">
+              <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png?v=12" alt="Facebook">
+            </div>
+            <span class="btn-text">Facebook</span>
+          </a>
+
+          <a href="https://www.instagram.com/arevic_studio?utm_source=qr&stkn=MTc3dXY1czJhNjYxYg%3D%3D" target="_blank" rel="noopener nofollow" class="hud-btn btn-instagram">
+            <div class="btn-icon-box">
+              <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png?v=12" alt="Instagram">
+            </div>
+            <span class="btn-text">Instagram</span>
+          </a>
+
+          <a href="https://www.tiktok.com/@arevic_studio?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener nofollow" class="hud-btn btn-tiktok">
+            <div class="btn-icon-box">
+              <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png?v=12" alt="TikTok">
+            </div>
+            <span class="btn-text">TikTok</span>
+          </a>
+        </section>
+
+        <!-- SECCIÓN CONTACTO -->
+        <section class="hud-group group-contacto">
+          <div class="group-label">Contacto</div>
+
+          <a href="https://wa.link/t1ypia" target="_blank" rel="noopener nofollow" class="hud-btn btn-whatsapp">
+            <div class="btn-icon-box">
+              <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png?v=12" alt="WhatsApp">
+            </div>
+            <span class="btn-text">WhatsApp</span>
+          </a>
+
+          <a href="mailto:info@arevicstudio.com" class="hud-btn btn-correo">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <span class="btn-text">Correo</span>
+          </a>
+
+          <a href="https://maps.google.com" target="_blank" rel="noopener nofollow" class="hud-btn btn-ubicacion">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00dcff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <span class="btn-text">Ubicación</span>
+          </a>
+        </section>
+
+        <!-- NÚCLEO CENTRAL CON LOGO EN SU TAMAÑO EXACTO -->
+        <div class="hud-core" id="arevic-core-button" title="Ir al Portal Oficial AREVIC">
+          
+          <div class="core-circuits-backdrop">
+            <img src="./index_files/88057707fa37ae52ca1ba44eea053f03.png?v=12" alt="Circuitos AREVIC" class="core-circuits-img">
           </div>
-          <span class="btn-text">Facebook</span>
-        </a>
 
-        <a href="https://www.instagram.com/arevic_studio?utm_source=qr&stkn=MTc3dXY1czJhNjYxYg%3D%3D" target="_blank" rel="noopener nofollow" class="hud-btn btn-instagram">
-          <div class="btn-icon-box">
-            <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png?v=9" alt="Instagram">
+          <div class="core-ring-cw"></div>
+          <div class="core-ring-ccw"></div>
+          
+          <div class="core-bezel-crop">
+            <img class="core-bezel" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png?v=12" alt="Bisel Core">
           </div>
-          <span class="btn-text">Instagram</span>
-        </a>
-
-        <!-- TikTok recortado -->
-        <a href="https://www.tiktok.com/@arevic_studio?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener nofollow" class="hud-btn btn-tiktok">
-          <div class="btn-icon-box">
-            <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png?v=9" alt="TikTok">
-          </div>
-          <span class="btn-text">TikTok</span>
-        </a>
-      </section>
-
-      <!-- SECCIÓN CONTACTO -->
-      <section class="hud-group group-contacto">
-        <div class="group-label">Contacto</div>
-
-        <a href="https://wa.link/t1ypia" target="_blank" rel="noopener nofollow" class="hud-btn btn-whatsapp">
-          <div class="btn-icon-box">
-            <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png?v=9" alt="WhatsApp">
-          </div>
-          <span class="btn-text">WhatsApp</span>
-        </a>
-
-        <a href="mailto:info@arevicstudio.com" class="hud-btn btn-correo">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-          </div>
-          <span class="btn-text">Correo</span>
-        </a>
-
-        <a href="https://maps.google.com" target="_blank" rel="noopener nofollow" class="hud-btn btn-ubicacion">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#00dcff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-          </div>
-          <span class="btn-text">Ubicación</span>
-        </a>
-      </section>
-
-      <!-- NÚCLEO CENTRAL CON CIRCUITOS (88057707...) + BISEL ESCALADO + ISOTIPO -->
-      <div class="hud-core" id="arevic-core-button" title="Ir al Portal Oficial AREVIC">
-        
-        <!-- Capa de Circuitos anclada al centro (en horizontal expande, en vertical rota 90°) -->
-        <div class="core-circuits-backdrop">
-          <img src="./index_files/88057707fa37ae52ca1ba44eea053f03.png?v=9" alt="Circuitos AREVIC" class="core-circuits-img">
+          
+          <!-- Monolito reducido para que nunca supere el círculo interior -->
+          <img class="core-monolith" src="./index_files/b8d4fd5ed056d4d8599b73736d34cd5d.png?v=12" alt="Isotipo AREVIC">
         </div>
 
-        <div class="core-ring-cw"></div>
-        <div class="core-ring-ccw"></div>
-        
-        <!-- Base metálica que llena el aro -->
-        <div class="core-bezel-crop">
-          <img class="core-bezel" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png?v=9" alt="Bisel Core">
-        </div>
-        
-        <!-- Isotipo 3D escalado dentro del círculo interior -->
-        <img class="core-monolith" src="./index_files/b8d4fd5ed056d4d8599b73736d34cd5d.png?v=9" alt="Isotipo AREVIC">
-      </div>
+        <!-- SECCIÓN MEDIA -->
+        <section class="hud-group group-media">
+          <div class="group-label">Media</div>
 
-      <!-- SECCIÓN MEDIA -->
-      <section class="hud-group group-media">
-        <div class="group-label">Media</div>
+          <a href="https://www.youtube.com/@AREVICStudio" target="_blank" rel="noopener nofollow" class="hud-btn btn-youtube">
+            <div class="btn-icon-box">
+              <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png?v=12" alt="YouTube">
+            </div>
+            <span class="btn-text">YouTube</span>
+          </a>
 
-        <a href="https://www.youtube.com/@AREVICStudio" target="_blank" rel="noopener nofollow" class="hud-btn btn-youtube">
-          <div class="btn-icon-box">
-            <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png?v=9" alt="YouTube">
-          </div>
-          <span class="btn-text">YouTube</span>
-        </a>
+          <a href="https://www.instagram.com/arevic_studio/reels/" target="_blank" rel="noopener nofollow" class="hud-btn btn-reels">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ff3b82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+            </div>
+            <span class="btn-text">Reels</span>
+          </a>
+        </section>
 
-        <a href="https://www.instagram.com/arevic_studio/reels/" target="_blank" rel="noopener nofollow" class="hud-btn btn-reels">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ff3b82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <polygon points="10 8 16 12 10 16 10 8"></polygon>
-            </svg>
-          </div>
-          <span class="btn-text">Reels</span>
-        </a>
-      </section>
+        <!-- SECCIÓN PORTAFOLIO -->
+        <section class="hud-group group-portafolio">
+          <div class="group-label">Portafolio</div>
 
-      <!-- SECCIÓN PORTAFOLIO -->
-      <section class="hud-group group-portafolio">
-        <div class="group-label">Portafolio</div>
+          <a href="https://www.behance.net/jesnervelasquez18" target="_blank" rel="noopener nofollow" class="hud-btn btn-behance">
+            <div class="btn-icon-box">
+              <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png?v=12" alt="Behance">
+            </div>
+            <span class="btn-text">Behance</span>
+          </a>
 
-        <a href="https://www.behance.net/jesnervelasquez18" target="_blank" rel="noopener nofollow" class="hud-btn btn-behance">
-          <div class="btn-icon-box">
-            <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png?v=9" alt="Behance">
-          </div>
-          <span class="btn-text">Behance</span>
-        </a>
+          <a href="https://arevicstudio.com/#gallery" target="_blank" rel="noopener nofollow" class="hud-btn btn-gallery">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+            <span class="btn-text">Gallery</span>
+          </a>
 
-        <a href="https://arevicstudio.com/#gallery" target="_blank" rel="noopener nofollow" class="hud-btn btn-gallery">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
-            </svg>
-          </div>
-          <span class="btn-text">Gallery</span>
-        </a>
+          <a href="https://arevicstudio.com/#proyectos" target="_blank" rel="noopener nofollow" class="hud-btn btn-proyectos">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <span class="btn-text">Proyectos</span>
+          </a>
+        </section>
 
-        <a href="https://arevicstudio.com/#proyectos" target="_blank" rel="noopener nofollow" class="hud-btn btn-proyectos">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ff4d4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-              <polyline points="2 17 12 22 22 17"></polyline>
-              <polyline points="2 12 12 17 22 12"></polyline>
-            </svg>
-          </div>
-          <span class="btn-text">Proyectos</span>
-        </a>
-      </section>
+        <!-- SECCIÓN WEB (AREVIC STUDIO / TOUR / SERVICIOS) -->
+        <section class="hud-group group-web">
+          <div class="group-label">Web</div>
 
-      <!-- SECCIÓN WEB (AREVIC STUDIO / TOUR / SERVICIOS) -->
-      <section class="hud-group group-web">
-        <div class="group-label">Web</div>
+          <a href="https://arevic.framer.website/" target="_blank" rel="noopener nofollow" class="hud-btn btn-website">
+            <div class="btn-icon-box">
+              <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png?v=12" alt="Sitio Web">
+            </div>
+            <span class="btn-text">AREVIC Studio</span>
+          </a>
 
-        <a href="https://arevic.framer.website/" target="_blank" rel="noopener nofollow" class="hud-btn btn-website">
-          <div class="btn-icon-box">
-            <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png?v=9" alt="Sitio Web">
-          </div>
-          <span class="btn-text">AREVIC Studio</span>
-        </a>
+          <a href="https://tour.panoee.net/Pizza_Don_Chico_AREVIC" target="_blank" rel="noopener nofollow" class="hud-btn btn-tour">
+            <div class="btn-icon-box">
+              <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png?v=12" alt="Tour Virtual">
+            </div>
+            <span class="btn-text">Tour</span>
+          </a>
 
-        <a href="https://tour.panoee.net/Pizza_Don_Chico_AREVIC" target="_blank" rel="noopener nofollow" class="hud-btn btn-tour">
-          <div class="btn-icon-box">
-            <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png?v=9" alt="Tour Virtual">
-          </div>
-          <span class="btn-text">Tour</span>
-        </a>
+          <a href="https://arevicstudio.com/#servicios" target="_blank" rel="noopener nofollow" class="hud-btn btn-servicios">
+            <div class="btn-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ff2d55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+              </svg>
+            </div>
+            <span class="btn-text">Servicios</span>
+          </a>
+        </section>
 
-        <a href="https://arevicstudio.com/#servicios" target="_blank" rel="noopener nofollow" class="hud-btn btn-servicios">
-          <div class="btn-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ff2d55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-            </svg>
-          </div>
-          <span class="btn-text">Servicios</span>
-        </a>
-      </section>
+      </main>
 
-    </main>
-
-    <!-- PIE DE PÁGINA (CANVA ORIGINAL: STUDIO 36PX) -->
-    <footer class="hud-footer">
-      <div class="footer-studio">STUDIO</div>
-      <div class="footer-slogan">Arquitectura en evolución constante</div>
-      <div class="footer-claim">Donde la Arquitectura Evoluciona y se Preserva como Organismo Vivo</div>
-    </footer>
+      <!-- PIE DE PÁGINA (CANVA ORIGINAL: STUDIO 36PX) -->
+      <footer class="hud-footer">
+        <div class="footer-studio">STUDIO</div>
+        <div class="footer-slogan">Arquitectura en evolución constante</div>
+        <div class="footer-claim">Donde la Arquitectura Evoluciona y se Preserva como Organismo Vivo</div>
+      </footer>
+    </div>
   </div>
 
   <script>
-    // Detección reactiva de rotación en teléfonos
     function handleOrientation() {
       const isLandscape = window.innerWidth > window.innerHeight;
       document.body.classList.toggle('is-landscape', isLandscape);
@@ -752,7 +764,6 @@
     window.addEventListener('orientationchange', handleOrientation);
     handleOrientation();
 
-    // Redirección central interactiva
     document.getElementById('arevic-core-button').addEventListener('click', function() {
       window.open('https://arevicstudio.com/', '_blank');
     });
