@@ -2,25 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>AREVIC Studio | Arquitectura en evolución constante</title>
   <meta name="description" content="Donde la Arquitectura Evoluciona y se Preserva como Organismo Vivo">
   
-  <!-- Favicon oficial AREVIC -->
   <link rel="icon" href="https://arevicstudio.com/index_files/favicon-dark.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="https://arevicstudio.com/index_files/favicon-light.png" media="(prefers-color-scheme: dark)">
 
   <style>
-    /* ========================================================
-       1. VARIABLES Y CONFIGURACIÓN BASE
-       ======================================================== */
     :root {
       --bg-dark: #080d16;
-      --panel-bg: rgba(13, 20, 32, 0.75);
-      --panel-border: rgba(94, 224, 224, 0.25);
-      --font-hud: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --core-glow: rgba(239, 68, 68, 0.6);
-      --cyan-glow: rgba(94, 224, 224, 0.5);
+      --font-hud: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     * {
@@ -29,43 +21,86 @@
       padding: 0;
       user-select: none;
       -webkit-user-drag: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       background-color: var(--bg-dark);
-      background-image: 
-        radial-gradient(circle at center, rgba(13, 27, 42, 0.6) 0%, rgba(8, 13, 22, 0.95) 100%),
-        url('./Gemini_Generated_Image_g6rgs7g6rgs7g6rg.jpg'); /* Textura de circuitos */
-      background-size: cover;
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
       color: #ffffff;
       font-family: var(--font-hud);
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       overflow-x: hidden;
-      padding: 20px 12px;
-    }
-
-    /* Animación de entrada general */
-    .hud-wrapper {
-      width: 100%;
-      max-width: 1400px;
-      animation: hud-fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes hud-fade-in {
-      from { opacity: 0; transform: scale(0.97) translateY(12px); }
-      to   { opacity: 1; transform: scale(1) translateY(0); }
+      position: relative;
     }
 
     /* ========================================================
-       2. LOGO / MARCA CABECERA
+       1. FONDO ORIGINAL CON ROTACIÓN AUTOMÁTICA EN VERTICAL
        ======================================================== */
+    .hud-background {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      background: #080d16 url('./index_files/d65c4ab531d8aaf7f22ab3abc5617576.png') center center / cover no-repeat;
+      z-index: -2;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.45s ease, height 0.45s ease;
+    }
+
+    .hud-circuit-layer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
+      background: url('./index_files/88057707fa37ae52ca1ba44eea053f03.png') center center / contain no-repeat;
+      opacity: 0.18;
+      z-index: -1;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Rotación de 90° en vertical para aprovechar el formato horizontal de la textura */
+    @media (orientation: portrait), (max-width: 899px) {
+      .hud-background {
+        width: 100vh;
+        height: 100vw;
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+      .hud-circuit-layer {
+        width: 100vh;
+        height: 100vw;
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+    }
+
+    /* ========================================================
+       2. ESTRUCTURA Y CABECERA (LOGO ORIGINAL)
+       ======================================================== */
+    .hud-wrapper {
+      width: 100%;
+      max-width: 1350px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: arevic-entrance 0.8s ease-out both;
+    }
+
+    @keyframes arevic-entrance {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .hud-brand {
       grid-area: brand;
       display: flex;
@@ -73,50 +108,51 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 8px;
+    }
+
+    .brand-logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(255, 30, 60, 0.5));
+    }
+
+    .brand-slogan {
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      color: #7b8fa3;
+      text-transform: uppercase;
+      margin-top: 6px;
       text-align: center;
     }
 
-    .hud-brand h1 {
-      font-size: 2.2rem;
-      letter-spacing: 0.38em;
-      font-weight: 800;
-      margin: 0;
-      padding-left: 0.38em; /* Compensa espaciado de fuente */
-      color: #ffffff;
-      text-shadow: 0 0 12px rgba(255, 60, 60, 0.7), 0 0 24px rgba(255, 60, 60, 0.3);
-      position: relative;
-    }
-
-    .hud-brand h1::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 2px;
-      background: #ff3344;
-      margin: 6px auto 0 auto;
-      box-shadow: 0 0 8px #ff3344;
-    }
-
-    .hud-brand .slogan {
-      font-size: 0.75rem;
-      letter-spacing: 0.22em;
-      color: #667f99;
-      text-transform: uppercase;
-      margin-top: 6px;
-    }
-
     /* ========================================================
-       3. ESTRUCTURA GRID RESPONSIVA (VERTICAL / HORIZONTAL)
+       3. GRILLA RESPONSIVA: COCKPIT Y MÓVIL
        ======================================================== */
     .hud-grid {
       display: grid;
-      gap: 20px 24px;
       width: 100%;
       align-items: center;
       justify-content: center;
     }
 
-    /* --- MODO VERTICAL (Smartphones / Retrato) --- */
+    /* MODO HORIZONTAL (Desktop / Móvil volteado) */
+    @media (orientation: landscape) and (min-width: 900px) {
+      .hud-grid {
+        grid-template-columns: 240px 420px 240px;
+        grid-template-areas:
+          "social   brand   contacto"
+          "social   core    contacto"
+          "media    core    portafolio"
+          "media    web     portafolio";
+        gap: 14px 28px;
+      }
+      .hud-brand {
+        margin-bottom: -15px;
+      }
+    }
+
+    /* MODO VERTICAL (Smartphones / Retrato) */
     @media (orientation: portrait), (max-width: 899px) {
       .hud-grid {
         grid-template-columns: 1fr 1fr;
@@ -125,77 +161,42 @@
           "social       contacto"
           "core         core"
           "media        portafolio"
-          "info         info";
-        max-width: 480px;
-        margin: 0 auto;
+          "web          web";
+        gap: 12px 14px;
+        max-width: 440px;
       }
-
-      .hud-core {
-        margin: 10px 0;
+      .brand-logo-img {
+        height: 38px;
       }
-    }
-
-    /* --- MODO HORIZONTAL (Desktop / Móviles girados) --- */
-    @media (orientation: landscape) and (min-width: 900px) {
-      .hud-grid {
-        grid-template-columns: 280px 380px 280px;
-        grid-template-areas:
-          "social   brand   contacto"
-          "social   core    contacto"
-          "media    core    portafolio"
-          "media    info    portafolio";
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-      }
-
-      .hud-brand {
-        margin-bottom: -10px;
+      .brand-slogan {
+        font-size: 0.65rem;
       }
     }
 
-    /* Asignación de áreas semánticas */
     .group-social     { grid-area: social; }
     .group-contacto   { grid-area: contacto; }
     .group-media      { grid-area: media; }
     .group-portafolio { grid-area: portafolio; }
-    .group-info       { grid-area: info; }
+    .group-web        { grid-area: web; }
     .hud-core         { grid-area: core; }
 
-    /* ========================================================
-       4. GRUPOS / CATEGORÍAS
-       ======================================================== */
     .hud-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
     }
 
-    /* En vertical, grupo información horizontal */
-    @media (orientation: portrait), (max-width: 899px) {
-      .group-info {
-        flex-direction: column;
-        align-items: center;
-      }
-      .group-info .hud-btn {
-        width: 100%;
-        max-width: 280px;
-      }
-    }
-
     .group-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.28em;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: #7d93ad;
-      text-align: center;
-      position: relative;
-      margin-bottom: 2px;
+      color: #7b8fa3;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
+      margin-bottom: 2px;
     }
 
     .group-label::before,
@@ -207,58 +208,52 @@
     }
 
     /* ========================================================
-       5. BOTONES CAPSULARES SCI-FI
+       4. BOTONES CAPSULARES (OPTIMIZADOS EN VERTICAL)
        ======================================================== */
     .hud-btn {
-      --neon: 94, 224, 224; /* Color de luz por defecto */
+      --neon: 94, 224, 224;
       position: relative;
       display: flex;
       align-items: center;
-      padding: 10px 16px;
-      background: linear-gradient(135deg, rgba(16, 26, 42, 0.85) 0%, rgba(8, 14, 24, 0.95) 100%);
-      border: 1px solid rgba(var(--neon), 0.35);
-      border-radius: 40px;
+      background: linear-gradient(135deg, rgba(14, 23, 38, 0.85) 0%, rgba(8, 14, 24, 0.95) 100%);
+      border: 1px solid rgba(var(--neon), 0.38);
+      border-radius: 36px;
       text-decoration: none;
       color: #ffffff;
       cursor: pointer;
       overflow: hidden;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-      box-shadow: 0 0 6px 0px rgba(var(--neon), 0.15), inset 0 0 6px rgba(var(--neon), 0.1);
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 0 6px 0px rgba(var(--neon), 0.18), inset 0 0 6px rgba(var(--neon), 0.12);
       backdrop-filter: blur(8px);
       width: 100%;
-      height: 52px;
+      height: 48px;
+      padding: 0 14px;
     }
 
-    /* Marcos y esquinas biseladas sci-fi */
     .hud-btn::before {
       content: '';
       position: absolute;
       inset: 2px;
-      border-radius: 38px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
       pointer-events: none;
     }
 
     .hud-btn:hover {
-      background: linear-gradient(135deg, rgba(26, 42, 68, 0.9) 0%, rgba(12, 22, 38, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(22, 38, 62, 0.9) 0%, rgba(10, 18, 32, 0.95) 100%);
       border-color: rgba(var(--neon), 0.9);
-      box-shadow: 0 0 16px 2px rgba(var(--neon), 0.55), inset 0 0 8px rgba(var(--neon), 0.3);
+      box-shadow: 0 0 14px 2px rgba(var(--neon), 0.6), inset 0 0 8px rgba(var(--neon), 0.3);
       transform: translateY(-1px) scale(1.02);
     }
 
-    .hud-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* Contenido interno del botón */
     .btn-icon-wrapper {
-      width: 32px;
-      height: 32px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      margin-right: 12px;
+      margin-right: 10px;
     }
 
     .btn-icon-wrapper img,
@@ -266,83 +261,96 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 0 4px rgba(var(--neon), 0.4));
+      filter: drop-shadow(0 0 4px rgba(var(--neon), 0.45));
     }
 
     .btn-text {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       white-space: nowrap;
-      color: #e4edf7;
+      color: #f0f5fb;
     }
 
-    /* ========================================================
-       6. ASIGNACIÓN DE COLORES NEÓN POR PLATAFORMA
-       ======================================================== */
-    .btn-facebook   { --neon: 24, 119, 242; }   /* Azul Facebook */
-    .btn-instagram  { --neon: 225, 48, 108; }   /* Magenta Instagram */
-    .btn-tiktok     { --neon: 37, 244, 238; }   /* Cyan claro TikTok */
-    .btn-whatsapp   { --neon: 37, 211, 102; }   /* Verde WhatsApp */
-    .btn-correo     { --neon: 0, 180, 216; }    /* Azul Ártico Correo */
-    .btn-ubicacion  { --neon: 0, 220, 255; }    /* Cyan Ubicación */
-    .btn-youtube    { --neon: 255, 0, 0; }      /* Rojo YouTube */
-    .btn-reels      { --neon: 255, 59, 130; }   /* Fucsia Reels */
-    .btn-behance    { --neon: 23, 105, 255; }   /* Azul Behance */
-    .btn-gallery    { --neon: 0, 229, 255; }    /* Cyan Gallery */
-    .btn-proyectos  { --neon: 255, 77, 77; }    /* Rojo Proyectos */
-    .btn-website    { --neon: 0, 245, 255; }    /* Cyan Neón Sitio Web */
-    .btn-tour       { --neon: 0, 200, 255; }    /* Cyan Tour */
-    .btn-about      { --neon: 255, 255, 255; }  /* Plata About */
+    /* Optimización de tamaño de botones en modo vertical */
+    @media (orientation: portrait), (max-width: 899px) {
+      .hud-btn {
+        height: 42px;
+        padding: 0 10px;
+        border-radius: 28px;
+      }
+      .btn-icon-wrapper {
+        width: 22px;
+        height: 22px;
+        margin-right: 6px;
+      }
+      .btn-text {
+        font-size: 0.68rem;
+        letter-spacing: 0.08em;
+      }
+      /* Reducción especial de ancho para el bloque WEB en móvil */
+      .group-web {
+        align-items: center;
+      }
+      .group-web .hud-btn {
+        max-width: 200px;
+      }
+    }
+
+    /* Colores Neón Identitarios */
+    .btn-facebook   { --neon: 24, 119, 242; }
+    .btn-instagram  { --neon: 225, 48, 108; }
+    .btn-tiktok     { --neon: 37, 244, 238; }
+    .btn-whatsapp   { --neon: 37, 211, 102; }
+    .btn-correo     { --neon: 0, 180, 216; }
+    .btn-ubicacion  { --neon: 0, 220, 255; }
+    .btn-youtube    { --neon: 255, 0, 0; }
+    .btn-reels      { --neon: 255, 59, 130; }
+    .btn-behance    { --neon: 23, 105, 255; }
+    .btn-gallery    { --neon: 0, 229, 255; }
+    .btn-proyectos  { --neon: 255, 77, 77; }
+    .btn-website    { --neon: 0, 245, 255; }
+    .btn-tour       { --neon: 0, 200, 255; }
+    .btn-about      { --neon: 255, 255, 255; }
 
     /* ========================================================
-       7. NÚCLEO CENTRAL HOLOGRÁFICO
+       5. NÚCLEO CENTRAL HOLOGRÁFICO CON MONOLITO COMPLETO
        ======================================================== */
     .hud-core {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 250px;
-      height: 250px;
+      width: 380px;
+      height: 380px;
       margin: 0 auto;
       cursor: pointer;
     }
 
-    .core-reactor {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle, rgba(20, 28, 45, 0.7) 0%, rgba(8, 13, 22, 0.95) 70%);
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(239, 68, 68, 0.25);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Anillos giratorios de fondo */
-    .core-reactor::before {
+    /* Ruedas/Anillos giratorios originales */
+    .hud-core::before,
+    .hud-core::after {
       content: '';
       position: absolute;
-      inset: -14px;
       border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hud-core::before {
+      width: 340px;
+      height: 340px;
       border: 1.5px dashed rgba(94, 224, 224, 0.4);
       border-top-color: rgba(239, 68, 68, 0.7);
       border-right-color: rgba(239, 68, 68, 0.7);
       animation: core-spin 18s linear infinite;
     }
 
-    .core-reactor::after {
-      content: '';
-      position: absolute;
-      inset: -28px;
-      border-radius: 50%;
+    .hud-core::after {
+      width: 370px;
+      height: 370px;
       border: 1px dotted rgba(239, 68, 68, 0.35);
-      animation: core-spin-reverse 28s linear infinite;
+      animation: core-spin-reverse 26s linear infinite;
     }
 
     @keyframes core-spin {
@@ -355,34 +363,55 @@
       to   { transform: rotate(0deg); }
     }
 
-    /* Imagen o símbolo del monolito central */
-    .core-monolith {
-      width: 140px;
-      height: 140px;
+    /* Disco/Base metálica del reactor */
+    .core-base-disc {
+      position: absolute;
+      width: 320px;
+      height: 320px;
       object-fit: contain;
-      z-index: 2;
-      filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
-      animation: core-breathe 4s infinite alternate ease-in-out;
+      z-index: 1;
+      filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.35));
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
-    @keyframes core-breathe {
-      0%   { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.4)); transform: scale(0.98); }
-      100% { filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.75)); transform: scale(1.02); }
+    /* Monolito 3D Cristalino Superpuesto */
+    .core-spire-monolith {
+      position: absolute;
+      width: 175px;
+      height: 250px;
+      object-fit: contain;
+      z-index: 2;
+      animation: spire-breathe 4s infinite alternate ease-in-out;
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    .hud-core:hover .core-reactor {
-      box-shadow: 0 0 30px rgba(239, 68, 68, 0.4), inset 0 0 20px rgba(94, 224, 224, 0.3);
+    @keyframes spire-breathe {
+      0%   { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5)); transform: scale(0.97); }
+      100% { filter: drop-shadow(0 0 18px rgba(239, 68, 68, 0.85)) drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); transform: scale(1.02); }
+    }
+
+    .hud-core:hover .core-base-disc {
+      filter: drop-shadow(0 0 22px rgba(239, 68, 68, 0.65)) brightness(1.15);
       transform: scale(1.02);
     }
 
-    .hud-core:hover .core-monolith {
-      filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.95)) brightness(1.2);
+    .hud-core:hover .core-spire-monolith {
+      filter: drop-shadow(0 0 26px rgba(239, 68, 68, 0.95)) drop-shadow(0 0 12px rgba(0, 240, 255, 0.6)) brightness(1.2);
+      transform: scale(1.04);
     }
 
-    /* ========================================================
-       8. ACCESIBILIDAD Y MOVIMIENTO REDUCIDO
-       ======================================================== */
+    /* Escala proporcional del núcleo en pantallas verticales */
+    @media (orientation: portrait), (max-width: 899px) {
+      .hud-core {
+        width: 250px;
+        height: 250px;
+      }
+      .hud-core::before { width: 225px; height: 225px; }
+      .hud-core::after  { width: 245px; height: 245px; }
+      .core-base-disc   { width: 215px; height: 215px; }
+      .core-spire-monolith { width: 120px; height: 170px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, ::before, ::after {
         animation: none !important;
@@ -393,13 +422,17 @@
 </head>
 <body>
 
+  <!-- Capas de fondo con rotación -->
+  <div class="hud-background"></div>
+  <div class="hud-circuit-layer"></div>
+
   <div class="hud-wrapper">
     <main class="hud-grid">
 
-      <!-- MARCA / CABECERA -->
+      <!-- CABECERA: IMAGEN LOGO ORIGINAL AREVIC -->
       <header class="hud-brand">
-        <h1>AREVIC</h1>
-        <div class="slogan">Arquitectura en evolución constante</div>
+        <img src="./index_files/cd3904fefb5a62b8113aa801d6fbb49f.png" alt="AREVIC" class="brand-logo-img">
+        <p class="brand-slogan">Arquitectura en evolución constante</p>
       </header>
 
       <!-- SECCIÓN SOCIAL -->
@@ -408,21 +441,21 @@
         
         <a href="https://www.facebook.com/share/19asS9LdkT/" target="_blank" rel="noopener nofollow" class="hud-btn btn-facebook">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png" alt="Facebook" onerror="this.src='https://cdn.simpleicons.org/facebook/1877F2'">
+            <img src="./index_files/348fc40c86741b5c2b847991881ef7dd.png" alt="Facebook">
           </div>
           <span class="btn-text">Facebook</span>
         </a>
 
         <a href="https://www.instagram.com/arevic_studio?utm_source=qr&stkn=MTc3dXY1czJhNjYxYg%3D%3D" target="_blank" rel="noopener nofollow" class="hud-btn btn-instagram">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png" alt="Instagram" onerror="this.src='https://cdn.simpleicons.org/instagram/E1306C'">
+            <img src="./index_files/2769c0f44567e72e5a6c61b182b5c31e.png" alt="Instagram">
           </div>
           <span class="btn-text">Instagram</span>
         </a>
 
         <a href="https://www.tiktok.com/@arevic_studio?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener nofollow" class="hud-btn btn-tiktok">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png" alt="TikTok" onerror="this.src='https://cdn.simpleicons.org/tiktok/25F4EE'">
+            <img src="./index_files/8b91aa0a4d807b399d3b34876349b032.png" alt="TikTok">
           </div>
           <span class="btn-text">TikTok</span>
         </a>
@@ -434,7 +467,7 @@
 
         <a href="https://wa.link/t1ypia" target="_blank" rel="noopener nofollow" class="hud-btn btn-whatsapp">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png" alt="WhatsApp" onerror="this.src='https://cdn.simpleicons.org/whatsapp/25D366'">
+            <img src="./index_files/ab68f590c9d4376c58d880f2c953dad1.png" alt="WhatsApp">
           </div>
           <span class="btn-text">WhatsApp</span>
         </a>
@@ -460,11 +493,10 @@
         </a>
       </section>
 
-      <!-- NÚCLEO CENTRAL INTERACTIVO -->
+      <!-- NÚCLEO CENTRAL CONSTRUIDO CON DISCO + MONOLITO AREVIC -->
       <div class="hud-core" id="arevic-core-button" title="Ir al Portal Oficial AREVIC">
-        <div class="core-reactor">
-          <img class="core-monolith" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png" alt="AREVIC Monolith" onerror="this.src='https://arevicstudio.com/index_files/og-image.png'">
-        </div>
+        <img class="core-base-disc" src="./index_files/b8ba21f3cbe2a78201a78adbe5a95815.png" alt="Reactor Core">
+        <img class="core-spire-monolith" src="./index_files/b8d4fd5ed056d4d8599b73736d34cd5d.png" alt="AREVIC Monolith Spire">
       </div>
 
       <!-- SECCIÓN MEDIA -->
@@ -473,7 +505,7 @@
 
         <a href="https://www.youtube.com/@AREVICStudio" target="_blank" rel="noopener nofollow" class="hud-btn btn-youtube">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png" alt="YouTube" onerror="this.src='https://cdn.simpleicons.org/youtube/FF0000'">
+            <img src="./index_files/fd903e1a9d2f0548d6de00ba2ef591f8.png" alt="YouTube">
           </div>
           <span class="btn-text">YouTube</span>
         </a>
@@ -495,7 +527,7 @@
 
         <a href="https://www.behance.net/jesnervelasquez18" target="_blank" rel="noopener nofollow" class="hud-btn btn-behance">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png" alt="Behance" onerror="this.src='https://cdn.simpleicons.org/behance/1769FF'">
+            <img src="./index_files/ed6562904d222d4dc0e6749976de35b4.png" alt="Behance">
           </div>
           <span class="btn-text">Behance</span>
         </a>
@@ -523,20 +555,20 @@
         </a>
       </section>
 
-      <!-- SECCIÓN INFORMACIÓN -->
-      <section class="hud-group group-info">
-        <div class="group-label">Información</div>
+      <!-- SECCIÓN WEB (RENOMBRADA Y COMPACTA) -->
+      <section class="hud-group group-web">
+        <div class="group-label">Web</div>
 
         <a href="https://arevic.framer.website/" target="_blank" rel="noopener nofollow" class="hud-btn btn-website">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png" alt="Sitio Web" onerror="this.src='https://cdn.simpleicons.org/googlechrome/00F5FF'">
+            <img src="./index_files/a2b1d1586ae8b679c0189420b42720cc.png" alt="Sitio Web">
           </div>
-          <span class="btn-text">Sitio Web</span>
+          <span class="btn-text">AREVIC Studio</span>
         </a>
 
         <a href="https://tour.panoee.net/Pizza_Don_Chico_AREVIC" target="_blank" rel="noopener nofollow" class="hud-btn btn-tour">
           <div class="btn-icon-wrapper">
-            <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png" alt="Tour Virtual" onerror="this.src='https://cdn.simpleicons.org/virtualbox/00C8FF'">
+            <img src="./index_files/08fa4c1895ea546a9904091f12d4313c.png" alt="Tour Virtual">
           </div>
           <span class="btn-text">Tour</span>
         </a>
@@ -557,7 +589,17 @@
   </div>
 
   <script>
-    // Clic en el reactor central redirige al dominio principal
+    // Detección reactiva de orientación en navegadores móviles
+    function syncOrientation() {
+      const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+      document.body.classList.toggle('is-landscape', isLandscape);
+      document.body.classList.toggle('is-portrait', !isLandscape);
+    }
+    window.addEventListener('resize', syncOrientation);
+    window.addEventListener('orientationchange', syncOrientation);
+    syncOrientation();
+
+    // Redirección del núcleo central
     document.getElementById('arevic-core-button').addEventListener('click', function() {
       window.open('https://arevicstudio.com/', '_blank');
     });
