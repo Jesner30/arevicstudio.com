@@ -198,8 +198,14 @@
       :root {
         --core-size-pc: 240px;
       }
+      .hud-wrapper {
+        width: 100%;
+        min-width: 0;
+      }
       .hud-grid {
-        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        min-width: 0;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         grid-template-areas:
           "brand        brand"
           "social       contacto"
@@ -208,6 +214,14 @@
           "web          web";
         gap: 10px 12px;
         max-width: 440px;
+        margin-inline: auto;
+      }
+      .hud-group {
+        min-width: 0;
+      }
+      .hud-core {
+        width: min(var(--core-size-pc), 68vw);
+        height: min(var(--core-size-pc), 68vw);
       }
       .hud-brand {
         margin-bottom: 16px;
@@ -216,8 +230,9 @@
         height: 38px;
       }
       .brand-slogan {
-        font-size: 0.58rem;
-        letter-spacing: 0.04em;
+        max-width: 100%;
+        font-size: clamp(0.48rem, 2.15vw, 0.58rem);
+        letter-spacing: 0.025em;
       }
       .hud-btn {
         height: 42px;
